@@ -12,7 +12,7 @@ public class TicketValidator {
 			return false;
 		String regex = "^.*@.*\\..*$";
 		isMatch = Pattern.matches(regex, email);
-		if (isMatch) {
+		if (isMatch) {	
 			System.out.println("The email address is: Valid");
 		} else {
 			System.out.println("The email address is: Invalid");

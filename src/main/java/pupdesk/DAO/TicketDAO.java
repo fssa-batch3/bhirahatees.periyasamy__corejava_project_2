@@ -42,7 +42,6 @@ public class TicketDAO {
 			System.out.println(new TicketDAO().createTicket(new Ticket("settu@gmail.com", "bhirahatees@gmail.com",
 					"Free Time", "High", "On Progress", "When Will you free")));
 		} catch (DAOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

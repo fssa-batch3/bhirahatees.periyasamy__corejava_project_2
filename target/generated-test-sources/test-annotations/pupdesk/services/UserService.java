@@ -1,6 +1,8 @@
 package pupdesk.services;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
+import java.sql.SQLException;
 
 import pupdesk.DAO.UserDAO;
 import pupdesk.DAO.exceptions.DAOException;
@@ -62,16 +64,16 @@ public class UserService {
 		}
 		return false;
 	}
-
+	
 	public boolean deleteUserService(String email) throws ServiceException {
 		UserDAO user = new UserDAO();
 		try {
-			if (user.deleteUser(email)) {
+			if(user.deleteUser(email)) {
 				return true;
-			} else {
+			}else {
 				return false;
 			}
-		} catch (DAOException e) {
+		}catch(DAOException e) {
 			throw new ServiceException("Failed to Delete");
 		}
 	}
