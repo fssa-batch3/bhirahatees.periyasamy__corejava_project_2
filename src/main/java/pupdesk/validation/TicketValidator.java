@@ -9,7 +9,7 @@ import pupdesk.model.Ticket;
 import pupdesk.validation.exceptions.InvalidTicketException;
 
 public class TicketValidator {
-	public boolean validateTicket(Ticket ticket) throws InvalidTicketException {
+	public static boolean validateTicket(Ticket ticket) throws InvalidTicketException {
 
 		if (validateEmail(ticket.getFrom()) && validateEmail(ticket.getTo()) && validateTime(ticket.getCreateTime())
 				&& validateSummary(ticket.getSummary()) && validateTicketId(ticket.getTicketId())
@@ -23,7 +23,7 @@ public class TicketValidator {
 
 	public static boolean validateTime(String dateTimeString) {
 		LocalDateTime currentDateTime = LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		LocalDateTime parsedDateTime = LocalDateTime.parse(dateTimeString, formatter);
 
 		return !parsedDateTime.isAfter(currentDateTime);
