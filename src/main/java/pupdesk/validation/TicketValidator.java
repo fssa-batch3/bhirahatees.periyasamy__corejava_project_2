@@ -1,9 +1,33 @@
 package pupdesk.validation;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import pupdesk.model.Ticket;
+import pupdesk.validation.exceptions.InvalidTicketException;
+
 public class TicketValidator {
+	public boolean validateTicket(Ticket ticket) throws InvalidTicketException {
+
+		if (validateEmail(ticket.getFrom()) && validateEmail(ticket.getTo()) && validateTime(ticket.getCreateTime())
+				&& validateSummary(ticket.getSummary()) && validateTicketId(ticket.getTicketId())
+				&& validatePriority(ticket.getPriority()) && validateStatus(ticket.getStatus())) {
+			return true;
+		} else {
+			throw new InvalidTicketException("Falide to create Ticket");
+		}
+
+	}
+
+	public static boolean validateTime(String dateTimeString) {
+		LocalDateTime currentDateTime = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+		LocalDateTime parsedDateTime = LocalDateTime.parse(dateTimeString, formatter);
+
+		return !parsedDateTime.isAfter(currentDateTime);
+	}
 
 	public static boolean validateEmail(String email) {
 		boolean isMatch = false;
@@ -12,7 +36,7 @@ public class TicketValidator {
 			return false;
 		String regex = "^.*@.*\\..*$";
 		isMatch = Pattern.matches(regex, email);
-		if (isMatch) {	
+		if (isMatch) {
 			System.out.println("The email address is: Valid");
 		} else {
 			System.out.println("The email address is: Invalid");

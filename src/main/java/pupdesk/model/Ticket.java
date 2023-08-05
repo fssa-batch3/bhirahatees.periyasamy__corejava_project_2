@@ -33,7 +33,7 @@ public class Ticket {
 
 	public static String getCurrentDateTime() {
 		LocalDateTime now = LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 		return now.format(formatter);
 	}
 

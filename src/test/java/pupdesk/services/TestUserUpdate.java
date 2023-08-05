@@ -1,7 +1,7 @@
 package pupdesk.services;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +15,8 @@ public class TestUserUpdate {
 		UserDAO loginUser = new UserDAO();
 
 		try {
-			boolean user = userService.updateUserService("bhirahatees.periyasamy@fssa.freshworks.com","firstname","Bhirahatees");
+			boolean user = userService.updateUserService("bhirahatees.periyasamy@fssa.freshworks.com", "firstname",
+					"Bhirahatees");
 			assertTrue(user);
 		} catch (ServiceException e) {
 			System.out.print("Invalid Credentials");
@@ -28,7 +29,7 @@ public class TestUserUpdate {
 		UserDAO loginUser = new UserDAO();
 
 		try {
-			boolean user = userService.updateUserService("bhirahatees.periysamy@gmail.com","teamcode","Pragathees");
+			boolean user = userService.updateUserService("bhirahatees.periysamy@gmail.com", "teamcode", "Pragathees");
 			assertFalse(user);
 		} catch (ServiceException e) {
 			System.out.print("Invalid Credentials");
