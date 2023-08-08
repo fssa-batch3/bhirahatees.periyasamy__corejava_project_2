@@ -35,6 +35,9 @@ public class UserDAO {
 				user = new User(rs.getString("firstname"), rs.getString("lastname"), rs.getString("email"),
 						rs.getNString("teamcode"), rs.getString("password"));
 			}
+			rs.close();
+			statement.close();
+			connection.close();
 			return user;
 		} catch (SQLException e) {
 			throw new DAOException("Failed to Login");
@@ -59,7 +62,8 @@ public class UserDAO {
 
 			// Execute the query
 			int rows = statement.executeUpdate();
-
+			connection.close();
+			statement.close();
 			// Return successful or not
 			return rows == 1;
 		} catch (SQLException e) {
@@ -87,27 +91,30 @@ public class UserDAO {
 				user = new User(rs.getString("firstname"), rs.getString("lastname"), rs.getString("email"),
 						rs.getNString("teamcode"), rs.getString("password"));
 			}
+			connection.close();
+			rs.close();
+			statment.close();
+			newStatment.close();
 			return user;
 		} catch (SQLException e) {
 			throw new DAOException("Update Failed");
 		}
 	}
-	
-	
+
 //    Deletin the user from the table   
-	public boolean deleteUser(String email) throws DAOException{
+	public boolean deleteUser(String email) throws DAOException {
 		try {
 			Connection connection = getConnection();
 			String deleteQuery = "DELETE FROM users WHERE email =?";
 			PreparedStatement statment = connection.prepareStatement(deleteQuery);
-			statment.setString(1,email);
+			statment.setString(1, email);
 			int rows = statment.executeUpdate();
+			statment.close();
+			connection.close();
 			return rows == 1;
-		}catch(SQLException e) {
+		} catch (SQLException e) {
 			throw new DAOException("Failed to Delete");
 		}
 	}
-	
-
 
 }

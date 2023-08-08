@@ -28,6 +28,8 @@ public class TicketDAO {
 			// Execute the query
 			int rows = statement.executeUpdate();
 
+			statement.close();
+			connection.close();
 			// Return successful or not
 			return rows == 1;
 		} catch (SQLException e) {
@@ -37,12 +39,4 @@ public class TicketDAO {
 
 	}
 
-	public static void main(String[] args) {
-		try {
-			System.out.println(new TicketDAO().createTicket(new Ticket("settu@gmail.com", "bhirahatees@gmail.com",
-					"Free Time", "High", "On Progress", "When Will you free")));
-		} catch (DAOException e) {
-			e.printStackTrace();
-		}
-	}
 }

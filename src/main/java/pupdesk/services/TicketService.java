@@ -28,15 +28,4 @@ public class TicketService {
 
 	}
 
-	public static void main(String[] args) {
-		try {
-			System.out.println(
-					new TicketService().createTicketService(new Ticket("bhirahatees.periysamy@fssa.freshworks.com",
-							"gowtham.sathyamoorthy@fssa.freshworks.com", "I have a find bugs in your code", "High",
-							"Pending", "While Testing I find the bugs in you code")));
-		} catch (ServiceException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 }

@@ -21,7 +21,7 @@ public class TestLoginUser {
 		UserDAO loginUser = new UserDAO();
 	
 		try {
-			boolean user = userService.loginUser("bhirahatees.periyasamy@fssa.freshworks.com","Bhirahatees@123");
+			boolean user = userService.loginUser("bhirahatees@fssa.freshworks.com","Bhirahatees@123");
 			System.out.println(user);
 			assertTrue(user);
 		} catch (ServiceException e) {

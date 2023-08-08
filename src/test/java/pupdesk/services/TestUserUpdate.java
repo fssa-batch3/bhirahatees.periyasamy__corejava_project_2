@@ -15,8 +15,8 @@ public class TestUserUpdate {
 		UserDAO loginUser = new UserDAO();
 
 		try {
-			boolean user = userService.updateUserService("bhirahatees.periyasamy@fssa.freshworks.com", "firstname",
-					"Bhirahatees");
+			boolean user = userService.updateUserService("bhirahatees@fssa.freshworks.com", "firstname",
+					"Pragathees");
 			assertTrue(user);
 		} catch (ServiceException e) {
 			System.out.print("Invalid Credentials");
