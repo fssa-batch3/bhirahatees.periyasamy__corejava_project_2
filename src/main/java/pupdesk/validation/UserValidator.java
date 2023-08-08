@@ -12,7 +12,8 @@ public class UserValidator {
 
 	public static boolean validateUser(User user1) throws InvalidUserException {
 
-		if (user1 != null && validateFirstname(user1.getFirstname())&& validateFirstname(user1.getLastname()) && validateTeamCode(user1.getTeamCode())&& validatePassword(user1.getPassword())
+		if (user1 != null && validateFirstname(user1.getFirstname()) && validateFirstname(user1.getLastname())
+				&& validateTeamCode(user1.getTeamCode()) && validatePassword(user1.getPassword())
 				&& validateEmail(user1.getEmail())) {
 			return true;
 		} else {
@@ -21,7 +22,7 @@ public class UserValidator {
 
 	}
 
-	public static boolean validateFirstname (String name) {
+	public static boolean validateFirstname(String name) {
 		boolean match = false;
 
 		if (name == null)
@@ -49,9 +50,8 @@ public class UserValidator {
 		String pattern_string = "(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=])(?=.*[^\\s]).{8,}$";
 		Pattern pattern = Pattern.compile(pattern_string);
 		Matcher check = pattern.matcher(password);
-		
+
 		match = check.matches();
-		
 
 		if (match) {
 
@@ -63,7 +63,6 @@ public class UserValidator {
 		return match;
 	}
 
-	
 	public static boolean validateTeamCode(String password) {
 		boolean match = false;
 
@@ -82,8 +81,7 @@ public class UserValidator {
 
 		return match;
 	}
-	
-	
+
 	public static boolean validateEmail(String email) {
 		boolean isMatch = false;
 

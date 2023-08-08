@@ -31,6 +31,19 @@ public class Ticket {
 		this.createdTime = getCurrentDateTime();
 	}
 
+	public Ticket(String from, String to, String summary, String ticketId, String priority, String status,
+			String description, String createdTime) {
+		super();
+		this.from = from;
+		this.to = to;
+		this.summary = summary;
+		this.ticketId = ticketId;
+		this.priority = priority;
+		this.status = status;
+		this.description = description;
+		this.createdTime = createdTime;
+	}
+
 	public static String getCurrentDateTime() {
 		LocalDateTime now = LocalDateTime.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -64,7 +77,7 @@ public class Ticket {
 	public String getDescription() {
 		return description;
 	}
-	
+
 	public String getCreateTime() {
 		return createdTime;
 	}
@@ -83,10 +96,8 @@ public class Ticket {
 	@Override
 	public String toString() {
 		return "Ticket [from=" + from + ", to=" + to + ", summary=" + summary + ", ticketId=" + ticketId + ", priority="
-				+ priority + ", status=" + status + ", description=" + description +" , Created Time="+ createdTime + "]";
+				+ priority + ", status=" + status + ", description=" + description + " , Created Time=" + createdTime
+				+ "]";
 	}
-	
-	public static void main(String[] args) {
-		System.out.println(new Ticket("settu@gmail.com" , "bhirahatees@gmail.com","Free Time","High" , "On Progress" , "When Will you free").toString());
-	}
+
 }

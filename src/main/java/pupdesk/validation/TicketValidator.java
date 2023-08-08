@@ -17,7 +17,7 @@ public class TicketValidator {
 				&& validateStatus(ticket.getStatus())) {
 			return true;
 		} else {
-			throw new InvalidTicketException("Falide to create Ticket");
+			throw new InvalidTicketException("Failed to create Ticket");
 		}
 
 	}
@@ -57,6 +57,7 @@ public class TicketValidator {
 		}
 		System.out.println("Invalid Priority");
 		return false;
+		
 	}
 
 	public static boolean validateStatus(String status) {

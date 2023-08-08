@@ -1,15 +1,12 @@
 package pupdesk.services;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
-import pupdesk.DAO.*;
 import pupdesk.model.User;
-import pupdesk.services.UserService;
 import pupdesk.services.exceptions.ServiceException;
 
 public class TestRegisterFeature {

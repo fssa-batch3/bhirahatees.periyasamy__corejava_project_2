@@ -20,3 +20,4 @@ public class TestValidateEmail {
 		assertFalse(validation.validateEmail("bhirahatees.periysamy.fssa.freshworks.com"));
 	}
 }
+	 

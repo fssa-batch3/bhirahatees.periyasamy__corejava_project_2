@@ -2,7 +2,10 @@ package pupdesk.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import pupdesk.DAO.exceptions.DAOException;
 import pupdesk.model.Ticket;
@@ -37,6 +40,43 @@ public class TicketDAO {
 			throw new DAOException("Failed to Create the ticket");
 		}
 
+	}
+
+	public List<Ticket> listTickets(String email) throws DAOException {
+		ArrayList<Ticket> tickets = new ArrayList<>();
+		String selectQuery = "SELECT * FROM tickets WHERE fromEmail = ? OR toEmail = ? OR toEmail = NULL";
+		try {
+			Connection connection = dbConnection.getConnection();
+			PreparedStatement statement = connection.prepareStatement(selectQuery);
+			statement.setString(1, email);
+			statement.setString(2, email);
+			ResultSet resultData = statement.executeQuery();
+			System.out.print(resultData.next());
+			while (resultData.next()) {
+				System.out.print("Pass");
+				tickets.add(new Ticket(resultData.getString("fromEmail"), resultData.getString("toEmail"),
+						resultData.getString("summary"), resultData.getString("ticketId"),
+						resultData.getString("createdate"), resultData.getString("priority"),
+						resultData.getString("status"), resultData.getString("description")));
+			}
+			connection.close();
+			resultData.close();
+			return tickets;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DAOException("Failed to get Tickets");
+		}
+
+	}
+
+	public static void main(String[] args) {
+		try {
+			new TicketDAO().listTickets("bhirahatees.periysamay@fssa.freshworks.com").forEach((x) -> x.toString());
+		} catch (DAOException e) {
+
+			e.printStackTrace();
+		}
+		;
 	}
 
 }
