@@ -2,6 +2,7 @@ package pupdesk.services;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
@@ -18,6 +19,7 @@ public class TestCreateTicketService {
 					"While Testing I find the bugs in you code")));
 		} catch (ServiceException e) {
 			System.out.println("Failed To Create Ticket");
+			fail();
 		}
 	}
 

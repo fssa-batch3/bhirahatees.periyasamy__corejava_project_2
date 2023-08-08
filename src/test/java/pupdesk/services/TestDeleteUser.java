@@ -2,6 +2,7 @@ package pupdesk.services;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
@@ -16,6 +17,7 @@ public class TestDeleteUser {
 			assertTrue(user.deleteUserService(delete));
 		} catch (ServiceException e) {
 			System.out.println("Failed to Delete");
+			fail();
 		}
 	}
 

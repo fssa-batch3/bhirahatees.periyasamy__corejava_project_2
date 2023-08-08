@@ -1,17 +1,12 @@
 package pupdesk.services;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.sql.SQLException;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
-import pupdesk.model.User;
+
 import pupdesk.DAO.UserDAO;
-import pupdesk.DAO.exceptions.DAOException;
 import pupdesk.services.exceptions.ServiceException;
 
 public class TestLoginUser {
@@ -26,6 +21,7 @@ public class TestLoginUser {
 			assertTrue(user);
 		} catch (ServiceException e) {
 		  System.out.print("Invalid Credentials");
+		  fail();
 		}
   }
   
