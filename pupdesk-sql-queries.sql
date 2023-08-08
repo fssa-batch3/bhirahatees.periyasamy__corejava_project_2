@@ -17,7 +17,7 @@ SELECT * FROM users;
 
 
 INSERT INTO users (firstname, lastname, email, teamcode, password)
-VALUES ('Bhirahatees', 'Periyasamy', 'bhirahatees@fssa.freshworks.com', 'IQU6A1', 'Bhirahatees@123');	
+VALUES ('Bhirahatees', 'Periyasamy', 'bhirahatees.periysamy@fssa.freshworks.com', 'IQU6A1', 'Bhirahatees@123');	
 
 
 CREATE TABLE IF NOT EXISTS tickets(
@@ -31,7 +31,9 @@ CREATE TABLE IF NOT EXISTS tickets(
   description VARCHAR(500)
 );
 
-SELECT * FROM tickets;
+DROP TABLE tickets;
+
+SELECT * FROM tickets;		
 
 INSERT INTO tickets (fromEmail , toEmail , summary , ticketId , priority , status,description) VALUES(?,?,?,?,?,?,?); 
 

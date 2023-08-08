@@ -6,6 +6,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
+import io.github.cdimascio.dotenv.Dotenv;
+
 import java.sql.ResultSet;
 
 import pupdesk.DAO.exceptions.DAOException;
@@ -15,9 +18,22 @@ public class UserDAO {
 
 	// Connect to database
 	public Connection getConnection() throws SQLException {
+ 
+		String DB_URL;
+		String DB_USER;
+		String DB_PASSWORD;
 
-		String url = "jdbc:mysql://localhost:3306/project";
-		Connection connection = DriverManager.getConnection(url, "root", "12345678");
+		if (System.getenv("CI") != null) {
+			DB_URL = System.getenv("DB_URL");
+			DB_USER = System.getenv("DB_USER");
+			DB_PASSWORD = System.getenv("DB_PASSWORD");
+		} else {
+			Dotenv env = Dotenv.load();
+			DB_URL = env.get("DB_URL");
+			DB_USER = env.get("DB_USER");
+			DB_PASSWORD = env.get("DB_PASSWORD");
+		}
+		Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
 		return connection;
 
 	}

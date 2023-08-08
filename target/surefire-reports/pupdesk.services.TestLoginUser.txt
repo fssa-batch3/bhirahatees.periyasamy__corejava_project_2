@@ -1,8 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: pupdesk.services.TestLoginUser
 -------------------------------------------------------------------------------
-Tests run: 2, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.098 s <<< FAILURE! - in pupdesk.services.TestLoginUser
-TestSuccesLogin  Time elapsed: 0.039 s  <<< FAILURE!
-org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
-	at pupdesk.services.TestLoginUser.TestSuccesLogin(TestLoginUser.java:26)
-
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.144 s - in pupdesk.services.TestLoginUser

@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: pupdesk.services.TestRegisterFeature
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.059 s <<< FAILURE! - in pupdesk.services.TestRegisterFeature
-testRegistrationSuccess  Time elapsed: 0.054 s  <<< FAILURE!
+Tests run: 3, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.108 s <<< FAILURE! - in pupdesk.services.TestRegisterFeature
+testRegistrationSuccess  Time elapsed: 0.103 s  <<< FAILURE!
 org.opentest4j.AssertionFailedError: 
-	at pupdesk.services.TestRegisterFeature.testRegistrationSuccess(TestRegisterFeature.java:27)
+	at pupdesk.services.TestRegisterFeature.testRegistrationSuccess(TestRegisterFeature.java:24)
 

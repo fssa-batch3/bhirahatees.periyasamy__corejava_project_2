@@ -51,9 +51,7 @@ public class TicketDAO {
 			statement.setString(1, email);
 			statement.setString(2, email);
 			ResultSet resultData = statement.executeQuery();
-			System.out.print(resultData.next());
 			while (resultData.next()) {
-				System.out.print("Pass");
 				tickets.add(new Ticket(resultData.getString("fromEmail"), resultData.getString("toEmail"),
 						resultData.getString("summary"), resultData.getString("ticketId"),
 						resultData.getString("createdate"), resultData.getString("priority"),
@@ -71,7 +69,10 @@ public class TicketDAO {
 
 	public static void main(String[] args) {
 		try {
-			new TicketDAO().listTickets("bhirahatees.periysamay@fssa.freshworks.com").forEach((x) -> x.toString());
+			List<Ticket> tickets = new TicketDAO().listTickets("bhirahatees.periysamy@fssa.freshworks.com");
+			for (Ticket ticket : tickets) {
+				System.out.println(ticket.toString());
+			}
 		} catch (DAOException e) {
 
 			e.printStackTrace();
