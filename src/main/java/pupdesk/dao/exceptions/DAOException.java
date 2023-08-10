@@ -1,4 +1,4 @@
-package pupdesk.DAO.exceptions;
+package pupdesk.dao.exceptions;
 
 public class DAOException extends Exception {
 

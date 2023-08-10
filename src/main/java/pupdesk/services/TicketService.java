@@ -1,12 +1,12 @@
 package pupdesk.services;
 
-import pupdesk.DAO.TicketDAO;
-import pupdesk.DAO.exceptions.DAOException;
+import java.util.List;
+
+import pupdesk.dao.TicketDAO;
+import pupdesk.dao.exceptions.DAOException;
 import pupdesk.model.Ticket;
-import pupdesk.model.User;
 import pupdesk.services.exceptions.ServiceException;
 import pupdesk.validation.TicketValidator;
-import pupdesk.validation.UserValidator;
 import pupdesk.validation.exceptions.InvalidTicketException;
 
 public class TicketService {
@@ -26,6 +26,21 @@ public class TicketService {
 			throw new ServiceException("Failed to create the Ticket");
 		}
 
+	}
+
+	public boolean listTicketService(List<Ticket> list) throws ServiceException {
+		if (list.size() == 0)
+			throw new ServiceException("There is no tickets");
+		for (Ticket ticket : list) {
+			try {
+				if (new TicketValidator().validateTicket(ticket)) {
+					continue;
+				}
+			} catch (InvalidTicketException e) {
+				throw new ServiceException("Invalid Tickets");
+			}
+		}
+		return true;
 	}
 
 }

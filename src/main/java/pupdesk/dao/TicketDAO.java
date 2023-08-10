@@ -1,4 +1,4 @@
-package pupdesk.DAO;
+package pupdesk.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import pupdesk.DAO.exceptions.DAOException;
+import pupdesk.dao.exceptions.DAOException;
 import pupdesk.model.Ticket;
 
 public class TicketDAO {
@@ -54,8 +54,8 @@ public class TicketDAO {
 			while (resultData.next()) {
 				tickets.add(new Ticket(resultData.getString("fromEmail"), resultData.getString("toEmail"),
 						resultData.getString("summary"), resultData.getString("ticketId"),
-						resultData.getString("createdate"), resultData.getString("priority"),
-						resultData.getString("status"), resultData.getString("description")));
+						 resultData.getString("priority"),
+						resultData.getString("status"), resultData.getString("description"),resultData.getString("createdate")));
 			}
 			connection.close();
 			resultData.close();

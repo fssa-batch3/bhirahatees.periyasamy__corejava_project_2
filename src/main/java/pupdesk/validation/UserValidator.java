@@ -2,9 +2,7 @@ package pupdesk.validation;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
 
-import pupdesk.DAO.UserDAO;
 import pupdesk.model.User;
 import pupdesk.validation.exceptions.InvalidUserException;
 

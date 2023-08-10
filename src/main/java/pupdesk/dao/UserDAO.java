@@ -1,7 +1,6 @@
-package pupdesk.DAO;
+package pupdesk.dao;
 
 import java.sql.Connection;
-
 
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -11,19 +10,21 @@ import io.github.cdimascio.dotenv.Dotenv;
 
 import java.sql.ResultSet;
 
-import pupdesk.DAO.exceptions.DAOException;
+import pupdesk.dao.exceptions.DAOException;
 import pupdesk.model.User;
 
 public class UserDAO {
 
 	// Connect to database
 	public Connection getConnection() throws SQLException {
- 
+
 		String DB_URL;
 		String DB_USER;
 		String DB_PASSWORD;
-		
-		
+
+		String LOCAL_DB_URL = "jdbc:mysql://localhost/project";
+		String LOCAL_DB_USER = "root";
+		String LOCAL_DB_PASSWORD = "12345678";
 
 		if (System.getenv("CI") != null) {
 			DB_URL = System.getenv("DB_URL");
@@ -35,7 +36,7 @@ public class UserDAO {
 			DB_USER = env.get("DB_USER");
 			DB_PASSWORD = env.get("DB_PASSWORD");
 		}
-		Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+		Connection connection = DriverManager.getConnection(LOCAL_DB_URL, LOCAL_DB_USER, LOCAL_DB_PASSWORD);
 		return connection;
 
 	}

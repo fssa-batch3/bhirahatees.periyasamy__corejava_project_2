@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
-import pupdesk.DAO.UserDAO;
+import pupdesk.dao.UserDAO;
 import pupdesk.services.exceptions.ServiceException;
 
 public class TestUserUpdate {

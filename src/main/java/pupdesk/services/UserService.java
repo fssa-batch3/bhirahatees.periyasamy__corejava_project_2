@@ -2,8 +2,8 @@ package pupdesk.services;
 
 
 
-import pupdesk.DAO.UserDAO;
-import pupdesk.DAO.exceptions.DAOException;
+import pupdesk.dao.UserDAO;
+import pupdesk.dao.exceptions.DAOException;
 import pupdesk.model.User;
 import pupdesk.services.exceptions.ServiceException;
 import pupdesk.validation.UserValidator;
