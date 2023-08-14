@@ -14,12 +14,9 @@ public class TicketDAO {
     UserDAO dbConnection = new UserDAO();
 
     public boolean createTicket(Ticket ticket) throws DAOException {
-
-        try {
-            Connection connection = dbConnection.getConnection();
+        String insertQuery = "INSERT INTO tickets (fromEmail , toEmail , summary , ticketId , priority , status,description,createdate) VALUES(?,?,?,?,?,?,?,?)";
+        try (Connection connection = dbConnection.getConnection(); PreparedStatement statement = connection.prepareStatement(insertQuery)){
             // Prepare SQL statement
-            String insertQuery = "INSERT INTO tickets (fromEmail , toEmail , summary , ticketId , priority , status,description,createdate) VALUES(?,?,?,?,?,?,?,?)";
-            PreparedStatement statement = connection.prepareStatement(insertQuery);
             statement.setString(1, ticket.getFrom());
             statement.setString(2, ticket.getTo());
             statement.setString(3, ticket.getSummary());
@@ -45,8 +42,7 @@ public class TicketDAO {
     public List<Ticket> listTickets(String email) throws DAOException {
         ArrayList<Ticket> tickets = new ArrayList<>();
         String selectQuery = "SELECT * FROM tickets WHERE fromEmail = ? OR toEmail = ? OR toEmail = NULL";
-        try ( Connection connection = dbConnection.getConnection()){
-            PreparedStatement statement = connection.prepareStatement(selectQuery);
+        try ( Connection connection = dbConnection.getConnection(); PreparedStatement statement = connection.prepareStatement(selectQuery)){
             statement.setString(1, email);
             statement.setString(2, email);
             ResultSet resultData = statement.executeQuery();
@@ -68,8 +64,7 @@ public class TicketDAO {
 
     public boolean updateTicketStatus(String ticketId) throws DAOException {
         String updateQuery = "UPDATE tickets SET status = ? WHERE ticketid = ? ";
-        try ( Connection connect = dbConnection.getConnection()){
-            PreparedStatement statement = connect.prepareStatement(updateQuery);
+        try ( Connection connect = dbConnection.getConnection();PreparedStatement statement = connect.prepareStatement(updateQuery)){
             statement.setString(1, "Closed");
             statement.setString(2, ticketId);
             int row = statement.executeUpdate();
@@ -83,9 +78,8 @@ public class TicketDAO {
     public ArrayList<Ticket> getTickets(String email , String status)throws DAOException{
       String selectQuery = "SELECT * FROM tickets WHERE toEmail = ? OR fromEmail =? OR status = ?";
       ArrayList<Ticket> tickets = new ArrayList<>();
-      try(  Connection connect = dbConnection.getConnection())
+      try(  Connection connect = dbConnection.getConnection(); PreparedStatement statment = connect.prepareStatement(selectQuery))
       {
-       PreparedStatement statment = connect.prepareStatement(selectQuery);
        statment.setString(1,email);
        statment.setString(2,email);
        statment.setString(3,status);
