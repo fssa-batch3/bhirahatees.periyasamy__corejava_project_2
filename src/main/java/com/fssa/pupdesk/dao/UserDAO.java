@@ -11,6 +11,7 @@ import com.fssa.pupdesk.model.User;
 import io.github.cdimascio.dotenv.Dotenv;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class UserDAO {
 
@@ -133,6 +134,21 @@ public class UserDAO {
 			return rows == 1;
 		} catch (SQLException e) {
 			throw new DAOException("Failed to Delete");
+		}
+	}
+
+	public ArrayList<User> getSameTeamUsers(String email, String password) throws DAOException {
+		User user = new UserDAO().login(email, password);
+        ArrayList<User> members = new ArrayList<>();
+		try(Connection connection = getConnection() ; PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE teamcode = ?")) {
+			statement.setString(1, user.getTeamCode());
+			ResultSet rs = statement.executeQuery();
+			while(rs.next()){
+				members.add(new User(rs.getString("firstname"),rs.getString("lastname"),rs.getString("email"),rs.getString("teamcode"),rs.getString("password")));
+			}
+			return members;
+		}catch (SQLException e){
+			throw new DAOException("Failed to get team");
 		}
 	}
 

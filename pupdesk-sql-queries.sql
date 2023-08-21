@@ -10,10 +10,12 @@ CREATE TABLE IF NOT EXISTS users(
   password VARCHAR(16)
 );
 
+ALTER TABLE users
+ADD islogged boolean;
 
 DELETE FROM users where email = "bhirahatees@fssa.freshworks.com"; 
 
-SELECT * FROM users;	
+SELECT * FROM users;
 
 
 INSERT INTO users (firstname, lastname, email, teamcode, password)
@@ -28,12 +30,17 @@ CREATE TABLE IF NOT EXISTS tickets(
   createdate DATETIME,
   priority VARCHAR(16),
   status VARCHAR(16),
-  description VARCHAR(500)
+  description VARCHAR(500),
+  FOREIGN KEY (fromEmail) REFERENCES users(email)
 );
 
 DROP TABLE tickets;
 
 SELECT * FROM tickets;		
+
+
+
+
 
 INSERT INTO tickets (fromEmail , toEmail , summary , ticketId , priority , status,description) VALUES(?,?,?,?,?,?,?); 
 

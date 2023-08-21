@@ -1,6 +1,6 @@
 package com.fssa.pupdesk.services;
 
-
+import java.util.ArrayList;
 
 import com.fssa.pupdesk.dao.UserDAO;
 import com.fssa.pupdesk.dao.exceptions.DAOException;
@@ -75,5 +75,27 @@ public class UserService {
 			throw new ServiceException("Failed to Delete");
 		}
 	}
+
+	public boolean getSameTeamUsersService(String email, String password) throws ServiceException {
+		UserDAO users = new UserDAO();
+		try {
+			ArrayList<User> teamMates = users.getSameTeamUsers(email, password);
+			if (teamMates.size() == 0 || teamMates == null) {
+				throw new ServiceException("Failed to get Teammates");
+
+			}
+			for (User teamMate : teamMates) {
+				if (new UserValidator().validateUser(teamMate)) {
+					continue;
+				}
+			}
+		} catch (DAOException | InvalidUserException e) {
+			throw new ServiceException("Failed to get Teammates");
+		}
+
+		return true;
+
+	}
+
 
 }

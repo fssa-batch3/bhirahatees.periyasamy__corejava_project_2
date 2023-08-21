@@ -89,7 +89,6 @@ public class TicketDAO {
                    resultData.getString("summary"), resultData.getString("ticketId"),
                    resultData.getString("priority"),
                    resultData.getString("status"), resultData.getString("description"), resultData.getString("createdate")));
-
        }
       }catch (SQLException e){
           e.printStackTrace();
