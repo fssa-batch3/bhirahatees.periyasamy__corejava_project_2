@@ -10,24 +10,27 @@
 [![HDDPQgn.md.png](https://iili.io/HDDPQgn.md.png)](https://freeimage.host/i/HDDPQgn)
 
 ## Flow
+````mermaid
+flowchart TD
+A[Start]  
+B[Display Registration Form]  
+C[User Fills out Form]  
+D[Validate Input]  
+E{Validation Successful?}  
+F[Save User Data]  
+G[Registration Successful]  
+H[Display Error Messages]  
+I[End]  
+A --> B  
+B --> C  
+C --> D  
+D --> E  
+E -- Valid --> F  
+F --> G  
+E -- Invalid --> H  
+H --> B  
+H --> I  
+G --> I  
 
- ````mermaid  
-flowchart TD  
-A[Start Registration]  
-A --> B[User provides email and password]  
-B --> C[Validate email format]  
-C -->|Valid| D[Check if email is already registered]  
-C -->|Invalid| B  
-D -->|Already Registered| E[Notify user: Email already in use]  
-D -->|Not Registered| F[Proceed with registration]  
-F --> G[Collect additional user information]  
-G --> H[Validate user information]  
-H -->|Valid| I[Create user account]  
-H -->|Invalid| G  
-I --> J[Send verification email]  
-J --> K[Wait for user to verify email]  
-K -->|Verified| L[Registration Complete]  
-K -->|Not Verified| K  
-F[Finish] 
 
 
