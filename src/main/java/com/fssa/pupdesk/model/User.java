@@ -10,6 +10,8 @@ public class User {
 	private String TeamCode;
 	private String password;
 
+	 static Random random = new Random();
+
 	public User(String firstname, String lastname, String email, String password) {
 		this.email = email;
 		this.firstname = firstname;
@@ -69,7 +71,6 @@ public class User {
 	public static String genarateTeamCode() {
 		 String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 	        int length = 6;
-	        Random random = new Random();
 	        StringBuilder keyBuilder = new StringBuilder();
 
 	        for (int i = 0; i < length; i++) {

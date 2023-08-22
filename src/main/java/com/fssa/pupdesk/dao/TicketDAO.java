@@ -28,12 +28,11 @@ public class TicketDAO {
             // Execute the query
             int rows = statement.executeUpdate();
 
-            statement.close();
-            connection.close();
+         
             // Return successful or not
             return rows == 1;
         } catch (SQLException e) {
-            e.printStackTrace();
+           
             throw new DAOException("Failed to Create the ticket");
         }
 
@@ -52,11 +51,10 @@ public class TicketDAO {
                         resultData.getString("priority"),
                         resultData.getString("status"), resultData.getString("description"), resultData.getString("createdate")));
             }
-            connection.close();
-            resultData.close();
+      
             return tickets;
         } catch (SQLException e) {
-            e.printStackTrace();
+          
             throw new DAOException("Failed to get Tickets");
         }
 
