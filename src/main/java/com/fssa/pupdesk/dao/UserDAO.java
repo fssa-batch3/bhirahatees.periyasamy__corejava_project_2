@@ -26,8 +26,7 @@ public class UserDAO {
             DB_USER = env.get("DB_USER");
             DB_PASSWORD = env.get("DB_PASSWORD");
         }
-        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/project", "root", "12345678");
-        return connection;
+       return DriverManager.getConnection("jdbc:mysql://localhost/project", "root", "12345678");
 
     }
 
