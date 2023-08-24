@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Ticket {
+	
 
 	private String from;
 	private String to;
@@ -43,13 +44,6 @@ public class Ticket {
 		this.description = description;
 		this.createdTime = createdTime;
 	}
-
-	public static String getCurrentDateTime() {
-		LocalDateTime now = LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		return now.format(formatter);
-	}
-
 	public String getFrom() {
 		return from;
 	}
@@ -62,6 +56,10 @@ public class Ticket {
 		return summary;
 	}
 
+	public String getTicketId() {
+		return ticketId;
+	}
+
 	public String getPriority() {
 		return priority;
 	}
@@ -70,16 +68,51 @@ public class Ticket {
 		return status;
 	}
 
-	public String getTicketId() {
-		return ticketId;
-	}
-
 	public String getDescription() {
 		return description;
 	}
 
-	public String getCreateTime() {
+	public String getCreatedTime() {
 		return createdTime;
+	}
+
+	public void setFrom(String from) {
+		this.from = from;
+	}
+
+	public void setTo(String to) {
+		this.to = to;
+	}
+
+	public void setSummary(String summary) {
+		this.summary = summary;
+	}
+
+	public void setTicketId(String ticketId) {
+		this.ticketId = ticketId;
+	}
+
+	public void setPriority(String priority) {
+		this.priority = priority;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void setCreatedTime(String createdTime) {
+		this.createdTime = createdTime;
+	}
+
+
+	public static String getCurrentDateTime() {
+		LocalDateTime now = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		return now.format(formatter);
 	}
 
 	public static String generateRandomId() {

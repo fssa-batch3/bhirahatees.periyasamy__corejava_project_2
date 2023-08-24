@@ -24,11 +24,10 @@ public class TicketDAO {
             statement.setString(5, ticket.getPriority());
             statement.setString(6, ticket.getStatus());
             statement.setString(7, ticket.getDescription());
-            statement.setString(8, ticket.getCreateTime());
+            statement.setString(8, ticket.getCreatedTime());
             
             // Execute the query
             int rows = statement.executeUpdate();
-            System.out.println("Rows"  + rows);
          
             // Return successful or not
             return rows == 1;
@@ -47,15 +46,20 @@ public class TicketDAO {
             statement.setString(2, email);
             ResultSet resultData = statement.executeQuery();
             while (resultData.next()) {
-                tickets.add(new Ticket(resultData.getString("fromEmail"), resultData.getString("toEmail"),
-                        resultData.getString("summary"), resultData.getString("ticketId"),
-                        resultData.getString("priority"),
-                        resultData.getString("status"), resultData.getString("description"), resultData.getString("createdate")));
+            	Ticket ticket = new Ticket();
+                ticket.setCreatedTime(resultData.getString("createdate"));
+                ticket.setDescription(resultData.getString("description"));
+                ticket.setFrom(resultData.getString("fromEmail"));
+                ticket.setPriority(resultData.getString("priority"));
+                ticket.setStatus(resultData.getString("status"));
+                ticket.setSummary(resultData.getString("summary"));
+                ticket.setTicketId(resultData.getString("ticketId"));
+                ticket.setTo(resultData.getString("toEmail"));
+                tickets.add(ticket);
             }
       
             return tickets;
         } catch (SQLException e) {
-          
             throw new DAOException("Failed to get Tickets");
         }
 
