@@ -9,11 +9,11 @@ import java.util.ArrayList;
 
 public class UserDAO {
 
-    private final String firstName = "firstname";
-    private final String lastName = "lastname";
-    private final String email = "email";
-    private final String teamCode = "teamcode";
-    private final String password = "password";
+    private static final String firstName = "firstname";
+    private static final String lastName = "lastname";
+    private static final String email = "email";
+    private static final String teamCode = "teamcode";
+    private static final String password = "password";
 
     // Connect to database
     public Connection getConnection() throws SQLException {
