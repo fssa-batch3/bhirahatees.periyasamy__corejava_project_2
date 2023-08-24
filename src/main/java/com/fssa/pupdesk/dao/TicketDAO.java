@@ -86,7 +86,6 @@ public class TicketDAO {
 
 	public List<Ticket> getTickets(String email, String status) throws DAOException {
 		String selectQuery = "SELECT * FROM tickets WHERE toEmail = ? OR fromEmail =? OR status = ?";
-		ArrayList<Ticket> tickets = new ArrayList<>();
 		try (Connection connect = dbConnection.getConnection();
 				PreparedStatement statment = connect.prepareStatement(selectQuery)) {
 			statment.setString(1, email);
