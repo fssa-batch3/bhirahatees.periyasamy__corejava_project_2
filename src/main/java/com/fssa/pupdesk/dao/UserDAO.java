@@ -5,7 +5,7 @@ import com.fssa.pupdesk.model.User;
 import io.github.cdimascio.dotenv.Dotenv;
 
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.List;
 
 public class UserDAO {
 
@@ -86,6 +86,9 @@ public class UserDAO {
             statment.setString(1, data);
             statment.setString(2, where);
             int rows = statment.executeUpdate();
+            if(rows > 1){
+                return null;
+            }
             newStatment.setString(1, where);
             ResultSet rs = newStatment.executeQuery();
             while (rs.next()) {
@@ -111,9 +114,9 @@ public class UserDAO {
         }
     }
 
-    public ArrayList<User> getSameTeamUsers(String email, String password) throws DAOException {
+    public List<User> getSameTeamUsers(String email, String password) throws DAOException {
         User user = new UserDAO().login(email, password);
-        ArrayList<User> members = new ArrayList<>();
+        List<User> members = new List<>();
         try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE teamcode = ?")) {
             statement.setString(1, user.getTeamCode());
             ResultSet rs = statement.executeQuery();

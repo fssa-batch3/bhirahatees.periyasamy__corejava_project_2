@@ -1,28 +1,27 @@
 package com.fssa.pupdesk.model;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 public class Comment {
 	private int commentId;
 	private String ticketId;
 	private String createdAt;
 	private String createdBy;
-	private String comment;
+	private String ticketComment;
+
+	Ticket ticket = new Ticket();
 
 	public Comment(int commentId, String ticketId, String createdBy, String comment) {
 		this.commentId = commentId;
 		this.ticketId = ticketId;
-		this.createdAt = new Ticket().getCurrentDateTime();
+		this.createdAt = Ticket.getCurrentDateTime();
 		this.createdBy = createdBy;
-		this.comment = comment;
+		this.ticketComment = comment;
 	}
 	public Comment(int commentId, String ticketId, String createdAt, String createdBy, String comment) {
 		this.commentId = commentId;
 		this.ticketId = ticketId;
 		this.createdAt = createdAt;
 		this.createdBy = createdBy;
-		this.comment = comment;
+		this.ticketComment = comment;
 	}
 	
 
@@ -44,13 +43,13 @@ public class Comment {
 	}
 
 	public void setComment(String comment) {
-		this.comment = comment;
+		this.ticketComment = comment;
 	}
 
 	@Override
 	public String toString() {
 		return "Comment [commentId=" + commentId + ", ticketId=" + ticketId + ", createdAt=" + createdAt
-				+ ", createdBy=" + createdBy + ", comment=" + comment + "]";
+				+ ", createdBy=" + createdBy + ", comment=" + ticketComment + "]";
 	}
 
 }

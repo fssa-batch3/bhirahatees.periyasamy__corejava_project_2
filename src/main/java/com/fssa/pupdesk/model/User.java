@@ -7,7 +7,7 @@ public class User {
 	private String firstname;
 	private String lastname;
 	private String email;
-	private String TeamCode;
+	private String teamCode;
 	private String password;
 
 	 static Random random = new Random();
@@ -20,15 +20,15 @@ public class User {
 		this.email = email;
 		this.firstname = firstname;
 		this.lastname = lastname;
-		this.TeamCode = genarateTeamCode();
+		this.teamCode = genarateTeamCode();
 		this.password = password;
 	}
 
-	public User(String firstname, String lastname, String email, String TeamCode, String password) {
+	public User(String firstname, String lastname, String email, String teamCode, String password) {
 		this.email = email;
 		this.firstname = firstname;
 		this.lastname = lastname;
-		this.TeamCode = TeamCode;
+		this.teamCode = teamCode;
 		this.password = password;
 	}
 
@@ -45,7 +45,7 @@ public class User {
 	}
 
 	public String getTeamCode() {
-		return TeamCode;
+		return teamCode;
 	}
 
 	public String getPassword() {
