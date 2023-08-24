@@ -7,8 +7,6 @@ import com.fssa.pupdesk.services.exceptions.ServiceException;
 import com.fssa.pupdesk.validation.TicketValidator;
 import com.fssa.pupdesk.validation.exceptions.InvalidTicketException;
 
-import java.security.Provider;
-import java.util.ArrayList;
 import java.util.List;
 
 public class TicketService {
@@ -32,17 +30,18 @@ public class TicketService {
 
     public boolean listTicketService(String email) throws ServiceException {
         List<Ticket> list;
+        TicketValidator validator = new TicketValidator();
         try {
             list = new TicketDAO().listTickets(email);
         }catch(DAOException e) {
           throw new ServiceException("Faile to get list of tickets");
         }
-        if (list.size() == 0)
+        if (list.isEmpty())
             throw new ServiceException("There is no tickets");
         for (Ticket ticket : list) {
             try {
-                if (new TicketValidator().validateTicket(ticket)) {
-                    continue;
+                if (!validator.validateTicket(ticket)) {
+                    throw new ServiceException("InvalidTickets");
                 }
             } catch (InvalidTicketException e) {
                 throw new ServiceException("Invalid Tickets");
@@ -61,7 +60,6 @@ public class TicketService {
 				throw new ServiceException("Invalid Ticket Id");
 			}
         } catch (DAOException e) {
-			System.out.print("Exception happened");
             throw new ServiceException("Failed To Update the Ticket");
         }
         return isUpdated;
@@ -70,12 +68,13 @@ public class TicketService {
     public boolean getTicketbyService(String email , String status) throws ServiceException{
         try{
             List<Ticket> tickets = new TicketDAO().getTickets(email, status);
-            if(tickets.size() == 0){
+            TicketValidator validator = new TicketValidator();
+            if(tickets.isEmpty()){
                 throw new ServiceException("There is no tickets");
             } else {
                 for (Ticket ticket : tickets) {
                     try {
-                        if (new TicketValidator().validateTicket(ticket)) {
+                        if (validator.validateTicket(ticket)) {
                             continue;
                         }
                     } catch (InvalidTicketException e) {

@@ -1,6 +1,7 @@
 package com.fssa.pupdesk.services;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.fssa.pupdesk.dao.UserDAO;
 import com.fssa.pupdesk.dao.exceptions.DAOException;
@@ -79,7 +80,7 @@ public class UserService {
 	public boolean getSameTeamUsersService(String email, String password) throws ServiceException {
 		UserDAO users = new UserDAO();
 		try {
-			ArrayList<User> teamMates = users.getSameTeamUsers(email, password);
+			List<User> teamMates = users.getSameTeamUsers(email, password);
 			if (teamMates.size() == 0 || teamMates == null) {
 				throw new ServiceException("Failed to get Teammates");
 

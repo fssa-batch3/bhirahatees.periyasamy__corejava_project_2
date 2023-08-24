@@ -5,7 +5,6 @@ import com.fssa.pupdesk.model.User;
 import io.github.cdimascio.dotenv.Dotenv;
 
 import java.sql.*;
-import java.util.Collections;
 import java.util.*;
 
 

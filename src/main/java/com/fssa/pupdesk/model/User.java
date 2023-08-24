@@ -65,7 +65,7 @@ public class User {
 	}
 
 	public void setTeamCode(String teamCode) {
-		TeamCode = teamCode;
+		teamCode = teamCode;
 	}
 
 	public void setPassword(String password) {
@@ -93,7 +93,4 @@ public class User {
 				+ ", password=" + password + "]";
 	}
 	
-	public static void main(String[] args) {
-		System.out.print(genarateTeamCode());
-	}
 }
