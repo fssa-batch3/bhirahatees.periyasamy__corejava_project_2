@@ -10,81 +10,78 @@ import com.fssa.pupdesk.validation.exceptions.InvalidTicketException;
 import java.util.List;
 
 public class TicketService {
-    public boolean createTicketService(Ticket ticket) throws ServiceException {
-        TicketDAO TicketDAO = new TicketDAO();
-        try {
-            TicketValidator.validateTicket(ticket);
-            if (TicketDAO.createTicket(ticket)) {
-                System.out.println("Ticket Created Successfully in this Id [" + ticket.getTicketId() + "]");
-                return true;
-            } else {
+	public boolean createTicketService(Ticket ticket) throws ServiceException {
+		TicketDAO TicketDAO = new TicketDAO();
+		try {
+			TicketValidator.validateTicket(ticket);
+			if (TicketDAO.createTicket(ticket)) {
+				System.out.println("Ticket Created Successfully in this Id [" + ticket.getTicketId() + "]");
+				return true;
+			} else {
 
-                return false;
-            }
+				return false;
+			}
 
-        } catch (DAOException | InvalidTicketException e) {
-            throw new ServiceException("Failed to create the Ticket");
-        }
-    
-    }
+		} catch (DAOException | InvalidTicketException e) {
+			throw new ServiceException("Failed to create the Ticket");
+		}
 
-    public boolean listTicketService(String email) throws ServiceException {
-        List<Ticket> list;
-        try {
-            list = new TicketDAO().listTickets(email);
-        }catch(DAOException e) {
-          throw new ServiceException("Faile to get list of tickets");
-        }
-        if (list.isEmpty())
-            throw new ServiceException("There is no tickets");
-        for (Ticket ticket : list) {
-            try {
-                if (!TicketValidator.validateTicket(ticket)) {
-                    throw new ServiceException("InvalidTickets");
-                }
-            } catch (InvalidTicketException e) {
-                throw new ServiceException("Invalid Tickets");
-            }
-        }
-        return true;
-    }
+	}
 
-    public boolean updateTicketStatusService(String ticketId) throws ServiceException {
-        TicketDAO ticket = new TicketDAO();
-        boolean isUpdated = false;
-        try {
-            if (TicketValidator.validateTicketId(ticketId)) {
-                isUpdated = ticket.updateTicketStatus(ticketId);
-            }else {
+	public boolean listTicketService(String email) throws ServiceException {
+		List<Ticket> list;
+		try {
+			list = new TicketDAO().listTickets(email);
+		} catch (DAOException e) {
+			throw new ServiceException("Faile to get list of tickets");
+		}
+		if (list.isEmpty())
+			throw new ServiceException("There is no tickets");
+		for (Ticket ticket : list) {
+			try {
+				if (!TicketValidator.validateTicket(ticket)) {
+					throw new ServiceException("InvalidTickets");
+				}
+			} catch (InvalidTicketException e) {
+				throw new ServiceException("Invalid Tickets");
+			}
+		}
+		return true;
+	}
+
+	public boolean updateTicketStatusService(String ticketId) throws ServiceException {
+		TicketDAO ticket = new TicketDAO();
+		boolean isUpdated = false;
+		try {
+			if (TicketValidator.validateTicketId(ticketId)) {
+				isUpdated = ticket.updateTicketStatus(ticketId);
+			} else {
 				throw new ServiceException("Invalid Ticket Id");
 			}
-        } catch (DAOException e) {
-            throw new ServiceException("Failed To Update the Ticket");
-        }
-        return isUpdated;
-    }
+		} catch (DAOException e) {
+			throw new ServiceException("Failed To Update the Ticket");
+		}
+		return isUpdated;
+	}
 
-    public boolean getTicketbyService(String email , String status) throws ServiceException{
-        try{
-            List<Ticket> tickets = new TicketDAO().getTickets(email, status);
-            TicketValidator validator = new TicketValidator();
-            if(tickets.isEmpty()){
-                throw new ServiceException("There is no tickets");
-            } else {
-                for (Ticket ticket : tickets) {
-                    try {
-                        if (!TicketValidator.validateTicket(ticket)) {
-                           throw new ServiceException("Failed to validate Tickets");
-                        }
-                    } catch (InvalidTicketException e) {
-                        throw new ServiceException("Invalid Tickets");
-                    }
-                }
-                return true;
-            }
-        }catch(DAOException e){
-              throw new ServiceException("Failed to get Tickets in service");
-        }
+	public boolean getTicketbyService(String email, String status) throws ServiceException {
+		try {
+			List<Ticket> tickets = new TicketDAO().getTickets(email, status);
+			if (tickets.isEmpty()) {
+				throw new ServiceException("There is no tickets");
+			} else {
+				for (Ticket ticket : tickets) {
 
-    }
+					if (!TicketValidator.validateTicket(ticket)) {
+						throw new ServiceException("Failed to validate Tickets");
+					}
+
+				}
+				return true;
+			}
+		} catch (DAOException | InvalidTicketException e) {
+			throw new ServiceException("Failed to get Tickets in service");
+		}
+
+	}
 }

@@ -1,6 +1,5 @@
 package com.fssa.pupdesk.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.fssa.pupdesk.dao.UserDAO;
@@ -35,14 +34,13 @@ public class UserService {
 			loginUser = user1.login(email, password);
 			if (loginUser == null) {
 				return false;
-			} else if (loginUser != null) {
+			} else {
 				System.out.println(loginUser.getFirstname() + " " + loginUser.getLastname() + " Login Successfully !");
 				return true;
 			}
 		} catch (DAOException e) {
 			throw new ServiceException("Login Failed");
 		}
-		return false;
 	}
 
 	public boolean updateUserService(String where, String which, String data) throws ServiceException {
@@ -52,8 +50,7 @@ public class UserService {
 			updateUser = user1.updateUser(where, which, data);
 			if (updateUser == null) {
 				return false;
-			} else if (updateUser != null) {
-				System.out.print(updateUser.toString());
+			} else {
 				System.out
 						.println(updateUser.getFirstname() + " " + updateUser.getLastname() + " Update Successfully !");
 				return true;
@@ -61,17 +58,13 @@ public class UserService {
 		} catch (DAOException e) {
 			throw new ServiceException("Update Failed");
 		}
-		return false;
 	}
 
 	public boolean deleteUserService(String email) throws ServiceException {
 		UserDAO user = new UserDAO();
 		try {
-			if (user.deleteUser(email)) {
-				return true;
-			} else {
-				return false;
-			}
+			return user.deleteUser(email) ? true : false;
+				
 		} catch (DAOException e) {
 			throw new ServiceException("Failed to Delete");
 		}
@@ -97,6 +90,5 @@ public class UserService {
 		return true;
 
 	}
-
 
 }
