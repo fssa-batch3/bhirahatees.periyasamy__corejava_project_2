@@ -14,7 +14,7 @@ public class TicketService {
 		TicketDAO ticketDAO = new TicketDAO();
 		try {
 			TicketValidator.validateTicket(ticket);
-				System.out.println("Ticket Created Successfully in this Id [" + ticket.getTicketId() + "]");
+//				System.out.println("Ticket Created Successfully in this Id [" + ticket.getTicketId() + "]");
 				return ticketDAO.createTicket(ticket);
 		} catch (DAOException | InvalidTicketException e) {
 			throw new ServiceException("Failed to create the Ticket",e);
@@ -27,7 +27,7 @@ public class TicketService {
 		try {
 			list = new TicketDAO().listTickets(email);
 		} catch (DAOException e) {
-			throw new ServiceException("Faile to get list of tickets");
+			throw new ServiceException("Failed to get list of tickets");
 		}
 		if (list.isEmpty())
 			throw new ServiceException("There is no tickets");

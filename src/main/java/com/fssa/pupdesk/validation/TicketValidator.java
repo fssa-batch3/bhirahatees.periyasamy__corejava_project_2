@@ -11,7 +11,7 @@ public class TicketValidator {
 	public static boolean validateTicket(Ticket ticket) throws InvalidTicketException {
 
 		if (validateTicketEmail(ticket.getFrom()) && validateTicketEmail(ticket.getTo())
-				&& validateTime(ticket.getCreateTime()) && validateSummary(ticket.getSummary())
+				&& validateTime(ticket.getCreatedTime()) && validateSummary(ticket.getSummary())
 				&& validateTicketId(ticket.getTicketId()) && validatePriority(ticket.getPriority())
 				&& validateStatus(ticket.getStatus())) {
 			return true;
@@ -40,21 +40,21 @@ public class TicketValidator {
 		boolean isMatch = false;
 		String regex = "^.{2,60}$";
 		isMatch = Pattern.matches(regex, summary);
-		if (isMatch) {
-			System.out.println("Summary is Valid");
-		} else {
-			System.out.println("Summary is Invalid");
-		}
+//		if (isMatch) {
+//			System.out.println("Summary is Valid");
+//		} else {
+//			System.out.println("Summary is Invalid");
+//		}
 		return isMatch;
 	}
 
 	public static boolean validatePriority(String priority) {
 		if (priority.equalsIgnoreCase("high") || priority.equalsIgnoreCase("medium")
 				|| priority.equalsIgnoreCase("low")) {
-			System.out.println("Valid Priority");
+//			System.out.println("Valid Priority");
 			return true;
 		}
-		System.out.println("Invalid Priority");
+//		System.out.println("Invalid Priority");
 		return false;
 		
 	}
@@ -62,10 +62,10 @@ public class TicketValidator {
 	public static boolean validateStatus(String status) {
 		if (status.equalsIgnoreCase("pending") || status.equalsIgnoreCase("open") || status.equalsIgnoreCase("on progress")
 				|| status.equalsIgnoreCase("closed")) {
-			System.out.println("Valid Status");
+//			System.out.println("Valid Status");
 			return true;
 		}
-		System.out.println("Invalid Status");
+//		System.out.println("Invalid Status");
 		return false;
 	}
 
@@ -74,9 +74,9 @@ public class TicketValidator {
 		String regex = "[0-9A-F]{2}([0-9A-F]{2}){6}";
 		isMatch = Pattern.matches(regex, ticketId);
 		if (isMatch) {
-			System.out.println("Ticket ID is Valid");
+//			System.out.println("Ticket ID is Valid");
 		} else {
-			System.out.println("Ticket ID is Invalid");
+//			System.out.println("Ticket ID is Invalid");
 		}
 		return isMatch;
 

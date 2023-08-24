@@ -30,17 +30,16 @@ public class UserValidator {
 		Pattern p = Pattern.compile(regex);
 		Matcher m = p.matcher(name);
 		match = m.matches();
-		if (match) {
-			System.out.println("name is valid.");
-		} else {
-			System.out.println("user name is not valid");
-		}
+//		if (match) {
+//			System.out.println("name is valid.");
+//		} else {
+//			System.out.println("user name is not valid");
+//		}
 
 		return match;
 	}
 
 	public static boolean validatePassword(String password) {
-		boolean match = false;
 
 		if (password == null)
 			return false;
@@ -49,16 +48,15 @@ public class UserValidator {
 		Pattern pattern = Pattern.compile(patternString);
 		Matcher check = pattern.matcher(password);
 
-		match = check.matches();
 
-		if (match) {
+//		if (match) {
+//
+//			System.out.println("Valid password.");
+//		} else {
+//			System.out.println("Invalid password.");
+//		}
 
-			System.out.println("Valid password.");
-		} else {
-			System.out.println("Invalid password.");
-		}
-
-		return match;
+		return 	check.matches();
 	}
 
 	public static boolean validateTeamCode(String password) {
@@ -70,12 +68,12 @@ public class UserValidator {
 		String patternString = "^[A-Z0-9]{6}$";
 		match = Pattern.matches(patternString, password);
 
-		if (match) {
-
-			System.out.println("Valid Team Code");
-		} else {
-			System.out.println("Invalid Team Code.");
-		}
+//		if (match) {
+//
+//			System.out.println("Valid Team Code");
+//		} else {
+//			System.out.println("Invalid Team Code.");
+//		}
 
 		return match;
 	}
@@ -87,16 +85,13 @@ public class UserValidator {
 			return false;
 		String regex = "^.*@.*\\..*$";
 		isMatch = Pattern.matches(regex, email);
-		if (isMatch) {
-			System.out.println("The email address is: Valid");
-		} else {
-			System.out.println("The email address is: Invalid");
-		}
+//		if (isMatch) {
+//			System.out.println("The email address is: Valid");
+//		} else {
+//			System.out.println("The email address is: Invalid");
+//		}
 		return isMatch;
 
 	}
-
-	public static void main(String[] args) {
-		UserValidator.validateTeamCode("*&&%%");
-	}
+	
 }

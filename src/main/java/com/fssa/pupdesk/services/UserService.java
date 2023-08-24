@@ -15,7 +15,7 @@ public class UserService {
 		try {
 			UserValidator.validateUser(user);
 			if (userDAO.createUser(user)) {
-				System.out.println(user.getFirstname() + " " + user.getLastname() + " Successfully registered!");
+//				System.out.println(user.getFirstname() + " " + user.getLastname() + " Successfully registered!");
 				return true;
 			} else {
 				return false;
@@ -35,7 +35,7 @@ public class UserService {
 			if (loginUser == null) {
 				return false;
 			} else {
-				System.out.println(loginUser.getFirstname() + " " + loginUser.getLastname() + " Login Successfully !");
+//				System.out.println(loginUser.getFirstname() + " " + loginUser.getLastname() + " Login Successfully !");
 				return true;
 			}
 		} catch (DAOException e) {
@@ -51,8 +51,8 @@ public class UserService {
 			if (updateUser == null) {
 				return false;
 			} else {
-				System.out
-						.println(updateUser.getFirstname() + " " + updateUser.getLastname() + " Update Successfully !");
+//				System.out
+//						.println(updateUser.getFirstname() + " " + updateUser.getLastname() + " Update Successfully !");
 				return true;
 			}
 		} catch (DAOException e) {
