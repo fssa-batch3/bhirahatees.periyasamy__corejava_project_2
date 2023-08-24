@@ -88,10 +88,16 @@ public class TicketDAO {
        statment.setString(3,status);
        ResultSet resultData = statment.executeQuery();
        while(resultData.next()){
-           tickets.add(new Ticket(resultData.getString("fromEmail"), resultData.getString("toEmail"),
-                   resultData.getString("summary"), resultData.getString("ticketId"),
-                   resultData.getString("priority"),
-                   resultData.getString("status"), resultData.getString("description"), resultData.getString("createdate")));
+    	   Ticket ticket = new Ticket();
+    	   ticket.setCreatedTime(resultData.getString("createdate"));
+    	   ticket.setDescription(resultData.getString("description"));
+    	   ticket.setFrom(resultData.getString("fromEmail"));
+    	   ticket.setPriority(resultData.getString("priority"));
+    	   ticket.setStatus(resultData.getString("status"));
+    	   ticket.setSummary(resultData.getString("summary"));
+    	   ticket.setTicketId(resultData.getString("ticketId"));
+    	   ticket.setTo(resultData.getString("toEmail"));
+           tickets.add(ticket);
        }
       }catch (SQLException e){
           e.printStackTrace();

@@ -32,18 +32,7 @@ public class Ticket {
 		this.createdTime = getCurrentDateTime();
 	}
 
-	public Ticket(String from, String to, String summary, String ticketId, String priority, String status,
-			String description, String createdTime) {
-		super();
-		this.from = from;
-		this.to = to;
-		this.summary = summary;
-		this.ticketId = ticketId;
-		this.priority = priority;
-		this.status = status;
-		this.description = description;
-		this.createdTime = createdTime;
-	}
+
 	public String getFrom() {
 		return from;
 	}

@@ -14,7 +14,6 @@ public class TicketService {
 		TicketDAO ticketDAO = new TicketDAO();
 		try {
 			TicketValidator.validateTicket(ticket);
-//				System.out.println("Ticket Created Successfully in this Id [" + ticket.getTicketId() + "]");
 				return ticketDAO.createTicket(ticket);
 		} catch (DAOException | InvalidTicketException e) {
 			throw new ServiceException("Failed to create the Ticket",e);

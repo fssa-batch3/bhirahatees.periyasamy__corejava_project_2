@@ -14,13 +14,7 @@ public class UserService {
 		UserDAO userDAO = new UserDAO();
 		try {
 			UserValidator.validateUser(user);
-			if (userDAO.createUser(user)) {
-//				System.out.println(user.getFirstname() + " " + user.getLastname() + " Successfully registered!");
-				return true;
-			} else {
-				return false;
-			}
-
+			return userDAO.createUser(user); 
 		} catch (DAOException | InvalidUserException e) {
 			throw new ServiceException("Not Valid User");
 		}
@@ -29,15 +23,8 @@ public class UserService {
 
 	public boolean loginUser(String email, String password) throws ServiceException {
 		UserDAO user1 = new UserDAO();
-		User loginUser;
 		try {
-			loginUser = user1.login(email, password);
-			if (loginUser == null) {
-				return false;
-			} else {
-//				System.out.println(loginUser.getFirstname() + " " + loginUser.getLastname() + " Login Successfully !");
-				return true;
-			}
+			return user1.login(email, password) != null ? true : false;
 		} catch (DAOException e) {
 			throw new ServiceException("Login Failed");
 		}
@@ -45,16 +32,8 @@ public class UserService {
 
 	public boolean updateUserService(String where, String which, String data) throws ServiceException {
 		UserDAO user1 = new UserDAO();
-		User updateUser;
 		try {
-			updateUser = user1.updateUser(where, which, data);
-			if (updateUser == null) {
-				return false;
-			} else {
-//				System.out
-//						.println(updateUser.getFirstname() + " " + updateUser.getLastname() + " Update Successfully !");
-				return true;
-			}
+			return user1.updateUser(where, which, data) != null ? true : false;
 		} catch (DAOException e) {
 			throw new ServiceException("Update Failed");
 		}
@@ -64,7 +43,6 @@ public class UserService {
 		UserDAO user = new UserDAO();
 		try {
 			return user.deleteUser(email);
-				
 		} catch (DAOException e) {
 			throw new ServiceException("Failed to Delete");
 		}
@@ -75,7 +53,7 @@ public class UserService {
 		try {
 			List<User> teamMates = users.getSameTeamUsers(email, password);
 			if (teamMates.isEmpty()) {
-				throw new ServiceException("Failed to get Teammates");
+				throw new ServiceException("There are no Teammates");
 
 			}
 			for (User teamMate : teamMates) {
@@ -84,7 +62,7 @@ public class UserService {
 				}
 			}
 		} catch (DAOException | InvalidUserException e) {
-			throw new ServiceException("Failed to get Teammates");
+			throw new ServiceException("Something Happened ! Failed to get Teammates");
 		}
 
 		return true;

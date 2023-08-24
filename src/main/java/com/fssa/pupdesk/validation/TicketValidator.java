@@ -37,48 +37,24 @@ public class TicketValidator {
 		if (summary == null) {
 			return false;
 		}
-		boolean isMatch = false;
 		String regex = "^.{2,60}$";
-		isMatch = Pattern.matches(regex, summary);
-//		if (isMatch) {
-//			System.out.println("Summary is Valid");
-//		} else {
-//			System.out.println("Summary is Invalid");
-//		}
-		return isMatch;
+		return Pattern.matches(regex, summary);
 	}
 
 	public static boolean validatePriority(String priority) {
-		if (priority.equalsIgnoreCase("high") || priority.equalsIgnoreCase("medium")
-				|| priority.equalsIgnoreCase("low")) {
-//			System.out.println("Valid Priority");
-			return true;
-		}
-//		System.out.println("Invalid Priority");
-		return false;
-		
+		return (priority.equalsIgnoreCase("high") || priority.equalsIgnoreCase("medium")
+				|| priority.equalsIgnoreCase("low"));
+
 	}
 
 	public static boolean validateStatus(String status) {
-		if (status.equalsIgnoreCase("pending") || status.equalsIgnoreCase("open") || status.equalsIgnoreCase("on progress")
-				|| status.equalsIgnoreCase("closed")) {
-//			System.out.println("Valid Status");
-			return true;
-		}
-//		System.out.println("Invalid Status");
-		return false;
+		return (status.equalsIgnoreCase("pending") || status.equalsIgnoreCase("open")
+				|| status.equalsIgnoreCase("on progress") || status.equalsIgnoreCase("closed")); 
 	}
 
 	public static boolean validateTicketId(String ticketId) {
-		boolean isMatch = false;
 		String regex = "[0-9A-F]{2}([0-9A-F]{2}){6}";
-		isMatch = Pattern.matches(regex, ticketId);
-		if (isMatch) {
-//			System.out.println("Ticket ID is Valid");
-		} else {
-//			System.out.println("Ticket ID is Invalid");
-		}
-		return isMatch;
+		return Pattern.matches(regex, ticketId);
 
 	}
 }
