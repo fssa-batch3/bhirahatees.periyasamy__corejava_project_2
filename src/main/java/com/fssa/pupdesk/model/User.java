@@ -1,6 +1,6 @@
 package com.fssa.pupdesk.model;
 
-import java.util.Random;
+import java.security.SecureRandom;
 
 public class User {
 
@@ -10,7 +10,7 @@ public class User {
 	private String teamCode;
 	private String password;
 
-	 static Random random = new Random();
+	 static SecureRandom random = new SecureRandom();
 	 
 	 public User() {
 		 
