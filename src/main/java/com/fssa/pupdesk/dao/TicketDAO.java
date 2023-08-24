@@ -79,7 +79,6 @@ public class TicketDAO {
 			int row = statement.executeUpdate();
 			return row == 1;
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new DAOException("Failed To Update");
 		}
 	}
@@ -94,7 +93,6 @@ public class TicketDAO {
 			ResultSet resultData = statment.executeQuery();
 		    return extractDataFromResultSet(resultData);
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new DAOException("Failed to Get Tickets");
 		}
 	}
