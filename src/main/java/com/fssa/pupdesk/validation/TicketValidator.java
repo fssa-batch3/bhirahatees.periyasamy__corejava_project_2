@@ -49,8 +49,8 @@ public class TicketValidator {
 	}
 
 	public static boolean validatePriority(String priority) {
-		if (priority.toLowerCase().equals("high") || priority.toLowerCase().equals("medium")
-				|| priority.toLowerCase().equals("low")) {
+		if (priority.equalsIgnoreCase("high") || priority.equalsIgnoreCase("medium")
+				|| priority.equalsIgnoreCase("low")) {
 			System.out.println("Valid Priority");
 			return true;
 		}
@@ -60,8 +60,8 @@ public class TicketValidator {
 	}
 
 	public static boolean validateStatus(String status) {
-		if (status.toLowerCase().equals("pending") || status.toLowerCase().equals("open") || status.toLowerCase().equals("on progress")
-				|| status.toLowerCase().equals("closed")) {
+		if (status.equalsIgnoreCase("pending") || status.equalsIgnoreCase("open") || status.equalsIgnoreCase("on progress")
+				|| status.equalsIgnoreCase("closed")) {
 			System.out.println("Valid Status");
 			return true;
 		}

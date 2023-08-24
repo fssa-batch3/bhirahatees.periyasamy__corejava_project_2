@@ -26,7 +26,7 @@ public class UserValidator {
 		if (name == null)
 			return false;
 
-		String regex = "^[A-Z]{1,}[a-z]{0,16}$";
+		String regex = "^[A-Z]+[a-z]{0,16}$";
 		Pattern p = Pattern.compile(regex);
 		Matcher m = p.matcher(name);
 		match = m.matches();
@@ -45,8 +45,8 @@ public class UserValidator {
 		if (password == null)
 			return false;
 
-		String pattern_string = "(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=])(?=.*[^\\s]).{8,}$";
-		Pattern pattern = Pattern.compile(pattern_string);
+		String patternString = "(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=])(?=.*[^\\s]).{8,}$";
+		Pattern pattern = Pattern.compile(patternString);
 		Matcher check = pattern.matcher(password);
 
 		match = check.matches();
@@ -67,8 +67,8 @@ public class UserValidator {
 		if (password == null)
 			return false;
 
-		String pattern_string = "^[A-Z0-9]{6,6}$";
-		match = Pattern.matches(pattern_string, password);
+		String patternString = "^[A-Z0-9]{6}$";
+		match = Pattern.matches(patternString, password);
 
 		if (match) {
 

@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestUserService {
 
 	@Test
-	public void testRegistrationSuccess() {
+	 void testRegistrationSuccess() {
 		UserService userService = new UserService();
 		User user1 = new User("Gowtham", "Sathyamoorthy", "gowtham.sathayamoorthy@fssa.freshworks.com", "H1IT5A",
 				"Gowtham@123");
@@ -26,7 +26,7 @@ public class TestUserService {
 	}
 
 	@Test
-	public void testInvalidPassword() {
+	 void testInvalidPassword() {
 
 		UserService userService = new UserService();
 		User user1 = new User("Bhirahatees", "Periyasamy", "bhirahatees.periyasamy@fssa,freshworks.com", "F03FEA",
@@ -40,7 +40,7 @@ public class TestUserService {
 	}
 
 	@Test
-	public void testSuccesLogin() {
+	 void testSuccesLogin() {
 		UserService userService = new UserService();
 		UserDAO loginUser = new UserDAO();
 
@@ -55,7 +55,7 @@ public class TestUserService {
 	}
 
 	@Test
-	public void testFailLogin() {
+	 void testFailLogin() {
 		UserService userService = new UserService();
 		UserDAO loginUser = new UserDAO();
 
@@ -69,7 +69,7 @@ public class TestUserService {
 	}
 
 	@Test
-	public void testUserNull() {
+	 void testUserNull() {
 
 		UserService userService = new UserService();
 		User user1 = null;
@@ -83,7 +83,7 @@ public class TestUserService {
 	}
 
 	@Test
-	public void testUpdateSuccess() {
+	 void testUpdateSuccess() {
 
 		UserService userService = new UserService();
 		UserDAO loginUser = new UserDAO();
@@ -98,7 +98,7 @@ public class TestUserService {
 	}
 
 	@Test
-	public void testUpdateFail() {
+	 void testUpdateFail() {
 		UserService userService = new UserService();
 		UserDAO loginUser = new UserDAO();
 
@@ -111,7 +111,7 @@ public class TestUserService {
 	}
 
 	@Test
-	public void testDeleteUserPass() {
+	 void testDeleteUserPass() {
 		UserService user = new UserService();
 		String delete = "bhirahatees.periyasamy@fssa.freshworks.com";
 		try {
@@ -123,7 +123,7 @@ public class TestUserService {
 	}
 
 	@Test
-	public void testDeleteUserFail() {
+	 void testDeleteUserFail() {
 		UserService user = new UserService();
 		String delete = "bhirahatees@fsa.freshworks.com";
 		try {
@@ -134,7 +134,7 @@ public class TestUserService {
 	}
 
 	@Test
-	public void testGetSameTeamUsersServicePass() {
+	 void testGetSameTeamUsersServicePass() {
 		try {
 			assertTrue(new UserService().getSameTeamUsersService("settu@gmail.com", "Gowtham@123"));
 		} catch (ServiceException e) {
@@ -143,7 +143,7 @@ public class TestUserService {
 		}
 	}
 	@Test
-	public void testGetSameTeamUsersServiceFail() {
+	 void testGetSameTeamUsersServiceFail() {
 			assertThrows(ServiceException.class, ()-> new UserService().getSameTeamUsersService("settu@gmail.com", "Goafwtaam@123"));
 	}
 }

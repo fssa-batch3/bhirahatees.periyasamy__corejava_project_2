@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestTicketService {
     @Test
-    public void TestCreateTicketServicePass() {
+     void TestCreateTicketServicePass() {
         TicketService ticketService = new TicketService();
         try {
             assertTrue(ticketService.createTicketService(new Ticket("bhirahatees.periysamy@fssa.freshworks.com", "gowtham.sathyamoorthy@fssa.freshworks.com", "I have a find bugs in your code", "High", "Pending", "While Testing I find the bugs in you code")));
@@ -20,7 +20,7 @@ public class TestTicketService {
     }
 
     @Test
-    public void TestCreateTicketServiceFail() {
+     void TestCreateTicketServiceFail() {
         TicketService ticketService = new TicketService();
         assertThrows(ServiceException.class, () -> {
             ticketService.createTicketService(new Ticket("bhirahatees.periysamy@fssa.freshworks.com", "gowtham.sathyamoorthy@fssa.freshworks.com", "I have find bugs in your code", "Pending", "High", "While Testing I find the bugs in your code"));

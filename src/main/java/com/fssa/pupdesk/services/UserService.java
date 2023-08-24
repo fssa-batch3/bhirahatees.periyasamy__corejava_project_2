@@ -63,7 +63,7 @@ public class UserService {
 	public boolean deleteUserService(String email) throws ServiceException {
 		UserDAO user = new UserDAO();
 		try {
-			return user.deleteUser(email) ? true : false;
+			return user.deleteUser(email);
 				
 		} catch (DAOException e) {
 			throw new ServiceException("Failed to Delete");
@@ -74,13 +74,13 @@ public class UserService {
 		UserDAO users = new UserDAO();
 		try {
 			List<User> teamMates = users.getSameTeamUsers(email, password);
-			if (teamMates.size() == 0 || teamMates == null) {
+			if (teamMates.isEmpty()) {
 				throw new ServiceException("Failed to get Teammates");
 
 			}
 			for (User teamMate : teamMates) {
-				if (new UserValidator().validateUser(teamMate)) {
-					continue;
+				if (!UserValidator.validateUser(teamMate)) {
+					throw new ServiceException('Failed to get Teammates");
 				}
 			}
 		} catch (DAOException | InvalidUserException e) {
