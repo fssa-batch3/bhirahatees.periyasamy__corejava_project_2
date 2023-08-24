@@ -69,7 +69,7 @@ public class TicketService {
 
     public boolean getTicketbyService(String email , String status) throws ServiceException{
         try{
-            ArrayList<Ticket> tickets = new TicketDAO().getTickets(email, status);
+            List<Ticket> tickets = new TicketDAO().getTickets(email, status);
             if(tickets.size() == 0){
                 throw new ServiceException("There is no tickets");
             } else {

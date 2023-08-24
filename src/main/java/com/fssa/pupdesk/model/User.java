@@ -11,6 +11,10 @@ public class User {
 	private String password;
 
 	 static Random random = new Random();
+	 
+	 public User() {
+		 
+	 }
 
 	public User(String firstname, String lastname, String email, String password) {
 		this.email = email;

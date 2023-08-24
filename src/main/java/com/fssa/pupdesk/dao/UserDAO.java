@@ -16,10 +16,6 @@ public class UserDAO {
         String DB_USER;
         String DB_PASSWORD;
 
-        String LOCAL_DB_URL = "jdbc:mysql://localhost/project";
-        String LOCAL_DB_USER = "root";
-        String LOCAL_DB_PASSWORD = "12345678";
-
         if (System.getenv("CI") != null) {
             DB_URL = System.getenv("DB_URL");
             DB_USER = System.getenv("DB_USER");
@@ -30,7 +26,7 @@ public class UserDAO {
             DB_USER = env.get("DB_USER");
             DB_PASSWORD = env.get("DB_PASSWORD");
         }
-        Connection connection = DriverManager.getConnection(LOCAL_DB_URL, LOCAL_DB_USER, LOCAL_DB_PASSWORD);
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/project", "root", "12345678");
         return connection;
 
     }
