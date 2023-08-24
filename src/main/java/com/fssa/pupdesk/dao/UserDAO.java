@@ -77,11 +77,10 @@ public class UserDAO {
 
 	// Updating User from Email
 	public User updateUser(String where, String which, String newValue) throws DAOException {
-		String updateQuery = "UPDATE users SET " + which + "= ? WHERE email = ?";
 		String selectQuery = "SELECT * FROM users WHERE email = ?";
 		User user = null;
 		try (Connection connection = getConnection();
-				PreparedStatement updateStatement = connection.prepareStatement(updateQuery);
+				PreparedStatement updateStatement = connection.prepareStatement("UPDATE users SET " + which + "= ? WHERE email = ?");
 				PreparedStatement selectStatement = connection.prepareStatement(selectQuery)) {
 
 			updateStatement.setString(1, newValue);
