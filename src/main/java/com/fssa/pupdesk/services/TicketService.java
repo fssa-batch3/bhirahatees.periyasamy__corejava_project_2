@@ -11,11 +11,11 @@ import java.util.List;
 
 public class TicketService {
 	public boolean createTicketService(Ticket ticket) throws ServiceException {
-		TicketDAO TicketDAO = new TicketDAO();
+		TicketDAO ticketDAO = new TicketDAO();
 		try {
 			TicketValidator.validateTicket(ticket);
 				System.out.println("Ticket Created Successfully in this Id [" + ticket.getTicketId() + "]");
-				return TicketDAO.createTicket(ticket);
+				return ticketDAO.createTicket(ticket);
 		} catch (DAOException | InvalidTicketException e) {
 			throw new ServiceException("Failed to create the Ticket",e);
 		}
