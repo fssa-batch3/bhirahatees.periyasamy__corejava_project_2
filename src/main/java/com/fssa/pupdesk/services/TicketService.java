@@ -30,7 +30,6 @@ public class TicketService {
 
     public boolean listTicketService(String email) throws ServiceException {
         List<Ticket> list;
-        TicketValidator validator = new TicketValidator();
         try {
             list = new TicketDAO().listTickets(email);
         }catch(DAOException e) {
@@ -40,7 +39,7 @@ public class TicketService {
             throw new ServiceException("There is no tickets");
         for (Ticket ticket : list) {
             try {
-                if (!validator.validateTicket(ticket)) {
+                if (!TicketValidator.validateTicket(ticket)) {
                     throw new ServiceException("InvalidTickets");
                 }
             } catch (InvalidTicketException e) {
@@ -74,8 +73,8 @@ public class TicketService {
             } else {
                 for (Ticket ticket : tickets) {
                     try {
-                        if (validator.validateTicket(ticket)) {
-                            continue;
+                        if (!TicketValidator.validateTicket(ticket)) {
+                           throw new ServiceException("Failed to validate Tickets");
                         }
                     } catch (InvalidTicketException e) {
                         throw new ServiceException("Invalid Tickets");

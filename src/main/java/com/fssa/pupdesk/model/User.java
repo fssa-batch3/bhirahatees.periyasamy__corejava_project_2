@@ -65,7 +65,7 @@ public class User {
 	}
 
 	public void setTeamCode(String teamCode) {
-		teamCode = teamCode;
+		this.teamCode = teamCode;
 	}
 
 	public void setPassword(String password) {
