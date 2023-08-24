@@ -9,6 +9,12 @@ import java.util.ArrayList;
 
 public class UserDAO {
 
+    private final String firstName = "firstname";
+    private final String lastName = "lastname";
+    private final String email = "email";
+    private final String teamCode = "teamcode";
+    private final String password = "password";
+
     // Connect to database
     public Connection getConnection() throws SQLException {
 
@@ -41,7 +47,7 @@ public class UserDAO {
             statement.setString(2, password);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
-                user = new User(rs.getString("firstname"), rs.getString("lastname"), rs.getString("email"), rs.getNString("teamcode"), rs.getString("password"));
+                user = new User(rs.getString(firstName), rs.getString(lastName), rs.getString(email), rs.getNString(teamCode), rs.getString(password));
             }
             return user;
         } catch (SQLException e) {
@@ -83,7 +89,7 @@ public class UserDAO {
             newStatment.setString(1, where);
             ResultSet rs = newStatment.executeQuery();
             while (rs.next()) {
-                user = new User(rs.getString("firstname"), rs.getString("lastname"), rs.getString("email"), rs.getNString("teamcode"), rs.getString("password"));
+                user = new User(rs.getString(firstName), rs.getString(lastName), rs.getString(email), rs.getNString(teamCode), rs.getString(password));
             }
             return user;
         } catch (SQLException e) {
@@ -112,7 +118,7 @@ public class UserDAO {
             statement.setString(1, user.getTeamCode());
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
-                members.add(new User(rs.getString("firstname"), rs.getString("lastname"), rs.getString("email"), rs.getString("teamcode"), rs.getString("password")));
+                members.add(new User(rs.getString(firstName), rs.getString(lastName), rs.getString(email), rs.getString(teamCode), rs.getString(password)));
             }
             return members;
         } catch (SQLException e) {
