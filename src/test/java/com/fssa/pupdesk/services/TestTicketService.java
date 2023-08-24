@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TestTicketService {
+ class TestTicketService {
     @Test
      void TestCreateTicketServicePass() {
         TicketService ticketService = new TicketService();
@@ -15,9 +15,10 @@ public class TestTicketService {
             assertTrue(ticketService.createTicketService(new Ticket("bhirahatees.periysamy@fssa.freshworks.com", "gowtham.sathyamoorthy@fssa.freshworks.com", "I have a find bugs in your code", "High", "Pending", "While Testing I find the bugs in you code")));
         } catch (ServiceException e) {
             System.out.println("Failed To Create Ticket");
-            fail();
+            e.printStackTrace();
+                fail();
         }
-    }
+    }   
 
     @Test
      void TestCreateTicketServiceFail() {

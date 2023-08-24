@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
-public class TestValidateUser {
+class TestValidateUser {
 	@Test
 	 void testValidateFirstEmailTestPass() {
 		UserValidator validation = new UserValidator();

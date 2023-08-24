@@ -19,9 +19,9 @@ public class UserDAO {
     // Connect to database
     public Connection getConnection() throws SQLException {
 
-       final String DB_URL;
-        final String DB_USER;
-        final String DB_PASSWORD;
+         String DB_URL;
+         String DB_USER;
+         String DB_PASSWORD;
 
         if (System.getenv("CI") != null) {
             DB_URL = System.getenv("DB_URL");
@@ -33,7 +33,7 @@ public class UserDAO {
             DB_USER = env.get("DB_USER");
             DB_PASSWORD = env.get("DB_PASSWORD");
         }
-       return DriverManager.getConnection("jdbc:mysql://localhost/project", "root", "12345678");
+       return DriverManager.getConnection(DB_URL,DB_USER,DB_PASSWORD);
 
     }
 

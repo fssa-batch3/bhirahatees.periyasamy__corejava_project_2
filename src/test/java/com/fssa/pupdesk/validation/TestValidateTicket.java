@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import com.fssa.pupdesk.validation.exceptions.InvalidTicketException;
 
-public class TestValidateTicket {
+ class TestValidateTicket {
 	@Test
 	 void TestValidateTicketTimePass() {
 		assertTrue(new TicketValidator().validateTime("2023-04-25 06:55:00"));

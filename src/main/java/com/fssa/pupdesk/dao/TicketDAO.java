@@ -25,15 +25,16 @@ public class TicketDAO {
             statement.setString(6, ticket.getStatus());
             statement.setString(7, ticket.getDescription());
             statement.setString(8, ticket.getCreateTime());
+            
             // Execute the query
             int rows = statement.executeUpdate();
-
+            System.out.println("Rows"  + rows);
          
             // Return successful or not
             return rows == 1;
         } catch (SQLException e) {
            
-            throw new DAOException("Failed to Create the ticket");
+            throw new DAOException("Failed to Create the ticket",e);
         }
 
     }
@@ -94,6 +95,8 @@ public class TicketDAO {
       }
       return tickets;
     }
+
+
 
 
 }

@@ -9,7 +9,7 @@ import com.fssa.pupdesk.services.exceptions.ServiceException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TestUserService {
+ class TestUserService {
 
 	@Test
 	 void testRegistrationSuccess() {

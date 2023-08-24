@@ -5,8 +5,8 @@ import java.util.List;
 import com.fssa.pupdesk.dao.UserDAO;
 import com.fssa.pupdesk.dao.exceptions.DAOException;
 import com.fssa.pupdesk.model.User;
-import com.fssa.pupdesk.validation.UserValidator;
 import com.fssa.pupdesk.services.exceptions.ServiceException;
+import com.fssa.pupdesk.validation.UserValidator;
 import com.fssa.pupdesk.validation.exceptions.InvalidUserException;
 
 public class UserService {
@@ -80,7 +80,7 @@ public class UserService {
 			}
 			for (User teamMate : teamMates) {
 				if (!UserValidator.validateUser(teamMate)) {
-					throw new ServiceException('Failed to get Teammates");
+					throw new ServiceException("Failed to get Teammates");
 				}
 			}
 		} catch (DAOException | InvalidUserException e) {

@@ -14,16 +14,10 @@ public class TicketService {
 		TicketDAO TicketDAO = new TicketDAO();
 		try {
 			TicketValidator.validateTicket(ticket);
-			if (TicketDAO.createTicket(ticket)) {
 				System.out.println("Ticket Created Successfully in this Id [" + ticket.getTicketId() + "]");
-				return true;
-			} else {
-
-				return false;
-			}
-
+				return TicketDAO.createTicket(ticket);
 		} catch (DAOException | InvalidTicketException e) {
-			throw new ServiceException("Failed to create the Ticket");
+			throw new ServiceException("Failed to create the Ticket",e);
 		}
 
 	}
