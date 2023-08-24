@@ -10,18 +10,18 @@ import java.util.*;
 
 public class UserDAO {
 
-    private static final String firstName = "firstname";
-    private static final String lastName = "lastname";
-    private static final String email = "email";
-    private static final String teamCode = "teamcode";
-    private static final String password = "password";
+    private static final String FIRSTNAME = "firstname";
+    private static final String LASTNAME = "lastname";
+    private static final String EMAIL = "email";
+    private static final String TEAMCODE="teamcode";
+    private static final String PASSWORD = "password";
 
     // Connect to database
     public Connection getConnection() throws SQLException {
 
-        String DB_URL;
-        String DB_USER;
-        String DB_PASSWORD;
+       final String DB_URL;
+        final String DB_USER;
+        final String DB_PASSWORD;
 
         if (System.getenv("CI") != null) {
             DB_URL = System.getenv("DB_URL");
@@ -48,7 +48,7 @@ public class UserDAO {
             statement.setString(2, password);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
-                user = new User(rs.getString(firstName), rs.getString(lastName), rs.getString(email), rs.getNString(teamCode), rs.getString(password));
+                user = new User(rs.getString(FIRSTNAME), rs.getString(LASTNAME), rs.getString(EMAIL), rs.getNString(TEAMCODE), rs.getString(PASSWORD));
             }
             return user;
         } catch (SQLException e) {
@@ -93,7 +93,7 @@ public class UserDAO {
             newStatment.setString(1, where);
             ResultSet rs = newStatment.executeQuery();
             while (rs.next()) {
-                user = new User(rs.getString(firstName), rs.getString(lastName), rs.getString(email), rs.getNString(teamCode), rs.getString(password));
+                user = new User(rs.getString(FIRSTNAME), rs.getString(LASTNAME), rs.getString(EMAIL), rs.getNString(TEAMCODE), rs.getString(PASSWORD));
             }
             return user;
         } catch (SQLException e) {
@@ -122,7 +122,7 @@ public class UserDAO {
             statement.setString(1, user.getTeamCode());
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
-                members.add(new User(rs.getString(firstName), rs.getString(lastName), rs.getString(email), rs.getString(teamCode), rs.getString(password)));
+                members.add(new User(rs.getString(FIRSTNAME), rs.getString(LASTNAME), rs.getString(EMAIL), rs.getString(TEAMCODE), rs.getString(PASSWORD)));
             }
             return members;
         } catch (SQLException e) {
