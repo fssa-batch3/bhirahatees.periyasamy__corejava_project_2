@@ -24,8 +24,8 @@ public class UserService {
 	public boolean loginUser(String email, String password) throws ServiceException {
 		UserDAO user1 = new UserDAO();
 		try {
-			return user1.login(email, password) != null ? true : false;
-		} catch (DAOException e) {
+			return UserValidator.validateUser(user1.login(email,password));
+		} catch (DAOException | InvalidUserException e) {
 			throw new ServiceException("Login Failed");
 		}
 	}
@@ -33,8 +33,8 @@ public class UserService {
 	public boolean updateUserService(String where, String which, String data) throws ServiceException {
 		UserDAO user1 = new UserDAO();
 		try {
-			return user1.updateUser(where, which, data) != null ? true : false;
-		} catch (DAOException e) {
+			return UserValidator.validateUser(user1.updateUser(where, which, data));
+		} catch (DAOException | InvalidUserException e) {
 			throw new ServiceException("Update Failed");
 		}
 	}
