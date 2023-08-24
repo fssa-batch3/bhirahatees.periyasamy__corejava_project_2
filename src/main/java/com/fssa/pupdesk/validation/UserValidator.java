@@ -2,6 +2,7 @@ package com.fssa.pupdesk.validation;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 import com.fssa.pupdesk.model.User;
 import com.fssa.pupdesk.validation.exceptions.InvalidUserException;
@@ -54,8 +55,15 @@ public class UserValidator {
 
 		if (email == null)
 			return false;
-		String regex = "^.*@.*\\..*$";
-		return Pattern.matches(regex, email);
+		String regex = "^[A-Za-z0-9+_.-]+@(.+)$";
+
+		try {
+			Pattern pattern = Pattern.compile(regex);
+			Matcher matcher = pattern.matcher(email);
+			return matcher.matches();
+		} catch (PatternSyntaxException ex) {
+			return false;
+		}
 
 	}
 
