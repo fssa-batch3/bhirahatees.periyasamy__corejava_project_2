@@ -1,4 +1,5 @@
 package com.fssa.pupdesk.model;
+import com.fssa.pupdesk.utils.*;
 
 public class Comment {
 	private int commentId;
@@ -7,12 +8,11 @@ public class Comment {
 	private String createdBy;
 	private String ticketComment;
 
-	Ticket ticket = new Ticket();
 
 	public Comment(int commentId, String ticketId, String createdBy, String comment) {
 		this.commentId = commentId;
 		this.ticketId = ticketId;
-		this.createdAt = Ticket.getCurrentDateTime();
+		this.createdAt = CurrentTimeGenerator.getCurrentDateTime();
 		this.createdBy = createdBy;
 		this.ticketComment = comment;
 	}

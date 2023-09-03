@@ -1,5 +1,6 @@
 package com.fssa.pupdesk.dao;
 
+import com.fssa.pupdesk.utils.ConnectionUtil;
 import com.fssa.pupdesk.dao.exceptions.DAOException;
 import com.fssa.pupdesk.model.Ticket;
 
@@ -10,28 +11,30 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class TicketDAO {
-	UserDAO dbConnection = new UserDAO();
+	ConnectionUtil dbConnection = new ConnectionUtil();
 
 	public static List<Ticket> extractDataFromResultSet(ResultSet resultData) throws SQLException {
 		ArrayList<Ticket> tickets = new ArrayList<>();
 		while (resultData.next()) {
 		Ticket ticket = new Ticket();
-		ticket.setCreatedTime(resultData.getString("createdate"));
+		ticket.setCreatedTime(resultData.getString("created_at"));
 		ticket.setDescription(resultData.getString("description"));
-		ticket.setFrom(resultData.getString("fromEmail"));
+		ticket.setFrom(resultData.getString("from_email"));
 		ticket.setPriority(resultData.getString("priority"));
 		ticket.setStatus(resultData.getString("status"));
 		ticket.setSummary(resultData.getString("summary"));
-		ticket.setTicketId(resultData.getString("ticketId"));
-		ticket.setTo(resultData.getString("toEmail"));
+		ticket.setTicketId(resultData.getString("ticket_id"));
+		ticket.setTo(resultData.getString("to_email"));
+		ticket.setClosingDescription(resultData.getString("closing_description"));
 		tickets.add(ticket);
 		}
 		return tickets;
 	}
 
 	public boolean createTicket(Ticket ticket) throws DAOException {
-		String insertQuery = "INSERT INTO tickets (fromEmail , toEmail , summary , ticketId , priority , status,description,createdate) VALUES(?,?,?,?,?,?,?,?)";
+		String insertQuery = "INSERT INTO tickets (from_email , to_email , summary , ticket_id , priority , status,description,created_at) VALUES(?,?,?,?,?,?,?,?)";
 		try (Connection connection = dbConnection.getConnection();
 				PreparedStatement statement = connection.prepareStatement(insertQuery)) {
 			// Prepare SQL statement
@@ -57,7 +60,7 @@ public class TicketDAO {
 	}
 
 	public List<Ticket> listTickets(String email) throws DAOException {
-		String selectQuery = "SELECT * FROM tickets WHERE fromEmail = ? OR toEmail = ? OR toEmail = NULL";
+		String selectQuery = "SELECT * FROM tickets WHERE from_email = ? OR to_email = ? OR to_email = NULL";
 		try (Connection connection = dbConnection.getConnection();
 				PreparedStatement statement = connection.prepareStatement(selectQuery)) {
 			statement.setString(1, email);
@@ -70,12 +73,13 @@ public class TicketDAO {
 
 	}
 
-	public boolean updateTicketStatus(String ticketId) throws DAOException {
-		String updateQuery = "UPDATE tickets SET status = ? WHERE ticketid = ? ";
+	public boolean updateTicketStatus(String ticketId , String closingDescription) throws DAOException {
+		String updateQuery = "UPDATE tickets SET status = ? , closing_description = ? WHERE ticket_id = ? ";
 		try (Connection connect = dbConnection.getConnection();
 				PreparedStatement statement = connect.prepareStatement(updateQuery)) {
 			statement.setString(1, "Closed");
-			statement.setString(2, ticketId);
+			statement.setString(2, closingDescription);
+			statement.setString(3, ticketId);
 			int row = statement.executeUpdate();
 			return row == 1;
 		} catch (SQLException e) {
@@ -84,7 +88,7 @@ public class TicketDAO {
 	}
 
 	public List<Ticket> getTickets(String email, String status) throws DAOException {
-		String selectQuery = "SELECT * FROM tickets WHERE toEmail = ? OR fromEmail =? OR status = ?";
+		String selectQuery = "SELECT * FROM tickets WHERE to_email = ? AND from_email =? OR status = ?";
 		try (Connection connect = dbConnection.getConnection();
 				PreparedStatement statment = connect.prepareStatement(selectQuery)) {
 			statment.setString(1, email);
@@ -96,5 +100,28 @@ public class TicketDAO {
 			throw new DAOException("Failed to Get Tickets");
 		}
 	}
-
+	
+	public Ticket getTicketById(String ticketId) throws DAOException {
+		Ticket ticket = new Ticket();
+		String selectQuery = "SELECT * FROM tickets WHERE ticket_id = ?";
+		try(Connection connect = dbConnection.getConnection();PreparedStatement statment = connect.prepareStatement(selectQuery)){
+			statment.setString(1,ticketId);
+			ResultSet resultData = statment.executeQuery();
+			while (resultData.next()) {
+				ticket.setCreatedTime(resultData.getString("created_at"));
+				ticket.setDescription(resultData.getString("description"));
+				ticket.setFrom(resultData.getString("from_email"));
+				ticket.setPriority(resultData.getString("priority"));
+				ticket.setStatus(resultData.getString("status"));
+				ticket.setSummary(resultData.getString("summary"));
+				ticket.setTicketId(resultData.getString("ticket_id"));
+				ticket.setTo(resultData.getString("to_email"));
+				ticket.setClosingDescription(resultData.getString("closing_description"));
+				}
+			return ticket;
+		}catch(SQLException e) {
+			throw new DAOException("Failed to get Tickets");
+		}
+	}
+	
 }

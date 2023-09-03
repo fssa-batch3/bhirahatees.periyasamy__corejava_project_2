@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.regex.Pattern;
 
 import com.fssa.pupdesk.model.Ticket;
+import com.fssa.pupdesk.model.User;
 import com.fssa.pupdesk.validation.exceptions.InvalidTicketException;
 
 public class TicketValidator {
@@ -49,7 +50,7 @@ public class TicketValidator {
 
 	public static boolean validateStatus(String status) {
 		return (status.equalsIgnoreCase("pending") || status.equalsIgnoreCase("open")
-				|| status.equalsIgnoreCase("on progress") || status.equalsIgnoreCase("closed")); 
+				|| status.equalsIgnoreCase("on progress") || status.equalsIgnoreCase("closed"));
 	}
 
 	public static boolean validateTicketId(String ticketId) {
@@ -57,4 +58,5 @@ public class TicketValidator {
 		return Pattern.matches(regex, ticketId);
 
 	}
+
 }

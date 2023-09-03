@@ -7,24 +7,22 @@ import com.fssa.pupdesk.services.exceptions.ServiceException;
 import com.fssa.pupdesk.validation.TicketValidator;
 import com.fssa.pupdesk.validation.exceptions.InvalidTicketException;
 
-
 import java.util.List;
 
 public class TicketService {
 
-	
 	public boolean createTicketService(Ticket ticket) throws ServiceException {
 		TicketDAO ticketDAO = new TicketDAO();
 		try {
 			TicketValidator.validateTicket(ticket);
-				return ticketDAO.createTicket(ticket);
+			return ticketDAO.createTicket(ticket);
 		} catch (DAOException | InvalidTicketException e) {
-			throw new ServiceException("Failed to create the Ticket",e);
+			throw new ServiceException("Failed to create the Ticket", e);
 		}
 
 	}
 
-	public boolean listTicketService(String email) throws ServiceException {
+	public List<Ticket> listTicketService(String email) throws ServiceException {
 		List<Ticket> list;
 		try {
 			list = new TicketDAO().listTickets(email);
@@ -42,15 +40,15 @@ public class TicketService {
 				throw new ServiceException("Invalid Tickets");
 			}
 		}
-		return true;
+		return list;
 	}
 
-	public boolean updateTicketStatusService(String ticketId) throws ServiceException {
+	public boolean updateTicketStatusService(String ticketId, String ClosingDescription) throws ServiceException {
 		TicketDAO ticket = new TicketDAO();
 		boolean isUpdated = false;
 		try {
 			if (TicketValidator.validateTicketId(ticketId)) {
-				isUpdated = ticket.updateTicketStatus(ticketId);
+				isUpdated = ticket.updateTicketStatus(ticketId, ClosingDescription);
 			} else {
 				throw new ServiceException("Invalid Ticket Id");
 			}
@@ -60,7 +58,7 @@ public class TicketService {
 		return isUpdated;
 	}
 
-	public boolean getTicketbyService(String email, String status) throws ServiceException {
+	public List<Ticket> getTicketbyService(String email, String status) throws ServiceException {
 		try {
 			List<Ticket> tickets = new TicketDAO().getTickets(email, status);
 			if (tickets.isEmpty()) {
@@ -73,11 +71,32 @@ public class TicketService {
 					}
 
 				}
-				return true;
+				return tickets;
 			}
 		} catch (DAOException | InvalidTicketException e) {
 			throw new ServiceException("Failed to get Tickets in service");
 		}
 
+	}
+
+	public Ticket getTicketByIdService(String ticketId) throws ServiceException {
+		try {
+			Ticket ticket = new TicketDAO().getTicketById(ticketId);
+			System.out.println("1"+ticket.toString());
+			new TicketValidator().validateTicket(ticket);
+			return ticket;
+		} catch (DAOException | InvalidTicketException e) {
+			throw new ServiceException("Failed to get a Ticket");
+		}
+	}
+	
+	public static void main(String[] args) {
+		try {
+			Ticket ticket = new TicketService().getTicketByIdService("6C391430D0ADA6");
+			System.out.println(ticket.toString());
+		} catch (ServiceException e) {
+			System.out.println("Failed");
+		}
+		
 	}
 }

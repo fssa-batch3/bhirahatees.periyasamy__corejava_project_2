@@ -9,14 +9,15 @@ public class User {
 	private String email;
 	private String teamCode;
 	private String password;
+	private String profileImageUrl;
 
-	 static SecureRandom random = new SecureRandom();
-	 
-	 public User() {
-		 
-	 }
+	static SecureRandom random = new SecureRandom();
 
-	public User(String firstname, String lastname, String email, String password) {
+	public User() {
+
+	}
+
+	public User(String firstname, String lastname,String email, String password) {
 		this.email = email;
 		this.firstname = firstname;
 		this.lastname = lastname;
@@ -73,24 +74,30 @@ public class User {
 	}
 
 	public static String genarateTeamCode() {
-		 String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-	        int length = 6;
-	        StringBuilder keyBuilder = new StringBuilder();
+		String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		int length = 6;
+		StringBuilder keyBuilder = new StringBuilder();
 
-	        for (int i = 0; i < length; i++) {
-	            int index = random.nextInt(characters.length());
-	            char randomChar = characters.charAt(index);
-	            keyBuilder.append(randomChar);
-	        }
+		for (int i = 0; i < length; i++) {
+			int index = random.nextInt(characters.length());
+			char randomChar = characters.charAt(index);
+			keyBuilder.append(randomChar);
+		}
 
-	        return keyBuilder.toString();
-	    }
-	
+		return keyBuilder.toString();
+	}
 
+	public String getProfileImageUrl() {
+		return profileImageUrl;
+	}
+
+	public void setProfileImageUrl(String profileImageUrl) {
+		this.profileImageUrl = profileImageUrl;
+	}
 	@Override
 	public String toString() {
-		return "User [firstname=" + firstname + ", lastname=" + lastname + ", email=" + email + ", TeamCode=" + teamCode
-				+ ", password=" + password + "]";
+		return "User [firstname=" + firstname + ", lastname=" + lastname + ", email=" + email + ", teamCode=" + teamCode
+				+ ", password=" + password + ", ProfileImageUrl=" + profileImageUrl + "]";
 	}
-	
+
 }

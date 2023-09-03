@@ -1,5 +1,7 @@
 USE project;
 
+USE bhirahatees_periyasamy_corejava_project;
+
 DROP TABLE tickets;
 
 CREATE TABLE IF NOT EXISTS users(
@@ -19,30 +21,54 @@ SELECT * FROM users;
 
 
 INSERT INTO users (firstname, lastname, email, teamcode, password)
-VALUES ('Bhirahatees', 'Periyasamy', 'bhirahatees.periysamy@fssa.freshworks.com', 'IQU6A1', 'Bhirahatees@123');	
+VALUES ('Arunkumar', 'Dhanraj', 'arunkumar.dhanraj@fssa.freshworks.com', 'IQU6A1', 'Arun@123');	
 
 
 CREATE TABLE IF NOT EXISTS tickets(
-  fromEmail VARCHAR(255),
-  toEmail VARCHAR(255),
+  from_email VARCHAR(255),
+  to_email VARCHAR(255),
   summary VARCHAR(255),
   ticketid VARCHAR(34) PRIMARY KEY,
-  createdate DATETIME,
+  created_at DATETIME,
   priority VARCHAR(16),
+  closing_description VARCHAR(1000),
   status VARCHAR(16),
-  description VARCHAR(500),
-  FOREIGN KEY (fromEmail) REFERENCES users(email)
+  description VARCHAR(1000),
+  FOREIGN KEY (from_email) REFERENCES users(email)
 );
 
 DROP TABLE tickets;
 
+ALTER TABLE users
+ADD profile_image_url VARCHAR(300);
+
 SELECT * FROM tickets;		
 
+INSERT INTO users (profile_image_url)
+SELECT 'https://cdn-icons-png.flaticon.com/512/64/64572.png'
+FROM users;
+
+UPDATE users
+SET profile_image_url = 'https://cdn-icons-png.flaticon.com/512/64/64572.png'
+WHERE profile_image_url = null;
 
 
 
 
-INSERT INTO tickets (fromEmail , toEmail , summary , ticketId , priority , status,description) VALUES(?,?,?,?,?,?,?); 
+
+CREATE TABLE IF NOT EXISTS comments(
+  comment_id INT AUTO_INCREMENT,
+  ticketid VARCHAR(34),
+  createdat DATETIME,
+  createdby VARCHAR(20),
+  ticket_comment VARCHAR(200),
+  FOREIGN KEY(ticketid) REFERENCES tickets(ticketid)
+);
+
+ALTER TABLE tickets 
+RENAME COLUMN ticketid TO ticket_id;
+
+
 
 
 

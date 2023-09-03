@@ -1,11 +1,9 @@
 package com.fssa.pupdesk.model;
 
 import java.security.SecureRandom;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import com.fssa.pupdesk.utils.CurrentTimeGenerator;
 
 public class Ticket {
-	
 
 	private String from;
 	private String to;
@@ -15,6 +13,7 @@ public class Ticket {
 	private String status;
 	private String description;
 	private String createdTime;
+	private String closingDescription;
 
 	public Ticket() {
 
@@ -29,9 +28,8 @@ public class Ticket {
 		this.priority = priority;
 		this.status = status;
 		this.description = description;
-		this.createdTime = getCurrentDateTime();
+		this.createdTime = CurrentTimeGenerator.getCurrentDateTime();
 	}
-
 
 	public String getFrom() {
 		return from;
@@ -97,13 +95,6 @@ public class Ticket {
 		this.createdTime = createdTime;
 	}
 
-
-	public static String getCurrentDateTime() {
-		LocalDateTime now = LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		return now.format(formatter);
-	}
-
 	public static String generateRandomId() {
 		SecureRandom secureRandom = new SecureRandom();
 		byte[] randomBytes = new byte[7];
@@ -113,6 +104,14 @@ public class Ticket {
 			result.append(String.format("%02X", b));
 		}
 		return result.toString();
+	}
+
+	public String getClosingDescription() {
+		return closingDescription;
+	}
+
+	public void setClosingDescription(String closingDescription) {
+		this.closingDescription = closingDescription;
 	}
 
 	@Override
