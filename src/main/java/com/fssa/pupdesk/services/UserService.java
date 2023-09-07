@@ -19,7 +19,7 @@ public class UserService {
 			UserValidator.validateUser(user);
 			return userDAO.createUser(user);
 		} catch (DAOException | InvalidUserException e) {
-			throw new ServiceException("Not Valid User");
+			throw new ServiceException(e.getMessage());
 		}
 
 	}
@@ -29,7 +29,7 @@ public class UserService {
 		try {
 			return UserValidator.validateUser(user1.login(email, password));
 		} catch (DAOException | InvalidUserException e) {
-			throw new ServiceException("Login Failed");
+			throw new ServiceException(e.getMessage());
 		}
 	}
 
@@ -41,7 +41,7 @@ public class UserService {
 			UserValidator.validateUser(user);
 			return user;
 		} catch (DAOException | InvalidUserException e) {
-			throw new ServiceException("Failed to get User Details");
+			throw new ServiceException(e.getMessage());
 		}
 
 	}
@@ -52,7 +52,7 @@ public class UserService {
 			UserValidator.validateUser(user1.updateUser(user));
 			return user;
 		} catch (DAOException | InvalidUserException e) {
-			throw new ServiceException("Failed to Update");
+			throw new ServiceException(e.getMessage());
 		}
 
 	}
@@ -62,7 +62,7 @@ public class UserService {
 		try {
 			return user.deleteUser(email);
 		} catch (DAOException e) {
-			throw new ServiceException("Failed to Delete");
+			throw new ServiceException(e.getMessage());
 		}
 	}
 
@@ -80,18 +80,10 @@ public class UserService {
 			}
 			return teamMates;
 		} catch (DAOException | InvalidUserException e) {
-			throw new ServiceException("Something Happened ! Failed to get Teammates");
+			throw new ServiceException(e.getMessage());
 		}
 
 	}
 	
-	public static void main(String[] args) {
-		try {
-			System.out.println(new UserService().deleteUserService("bhirahatees.periysamy@fssa.freshworks.com"));
-		} catch (ServiceException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 
 }

@@ -17,7 +17,7 @@ ADD islogged boolean;
 
 DELETE FROM users where email = "bhirahatees@fssa.freshworks.com"; 
 
-SELECT * FROM users;
+SELECT * FROM users;	
 
 
 INSERT INTO users (firstname, lastname, email, teamcode, password)
@@ -36,6 +36,9 @@ CREATE TABLE IF NOT EXISTS tickets(
   description VARCHAR(1000),
   FOREIGN KEY (from_email) REFERENCES users(email)
 );
+
+ALTER TABLE tickets
+DROP FOREIGN KEY fk_tickets_from_email;
 
 DROP TABLE tickets;
 

@@ -1,6 +1,8 @@
 package com.fssa.pupdesk.model;
 
 import java.security.SecureRandom;
+
+
 import com.fssa.pupdesk.utils.CurrentTimeGenerator;
 
 public class Ticket {
@@ -102,7 +104,7 @@ public class Ticket {
 		StringBuilder result = new StringBuilder();
 		for (byte b : randomBytes) {
 			result.append(String.format("%02X", b));
-		}
+		}  
 		return result.toString();
 	}
 

@@ -1,96 +1,135 @@
 package com.fssa.pupdesk.validation;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
+import com.fssa.pupdesk.validation.exceptions.InvalidUserException;
+import com.fssa.pupdesk.model.User;
+
 class TestValidateUser {
 	@Test
-	 void testValidateFirstEmailTestPass() {
+	void testValidateFirstEmailTestPass() {
 		UserValidator validation = new UserValidator();
-		assertTrue(validation.validateEmail("bhirahatees.periyayasamy@fssa.freshworks.com"));
+		try {
+			assertTrue(validation.validateEmail("bhirahatees.periyayasamy@fssa.freshworks.com"));
+		} catch (InvalidUserException e) {
+			fail(e.getMessage());
+		}
 
 	}
 
 	@Test
-	 void testValidateFirstEmailTestFail() {
+	void testValidateFirstEmailTestFail() {
 		UserValidator validation = new UserValidator();
-		assertFalse(validation.validateEmail("bhirahatees.periysamy.fssa.freshworks.com"));
+		assertThrows(InvalidUserException.class,
+				() -> validation.validateEmail("bhirahatees.periysamy.fssa.freshworks.com"));
 	}
 
 	@Test
-	 void testValidateFirstNameTestPass() {
+	void testValidateFirstNameTestPass() {
 		UserValidator validation = new UserValidator();
-		assertTrue(validation.validateFirstname("Bhirahatees"));
+		try {
+			assertTrue(validation.validateFirstname("Bhirahatees"));
+		} catch (InvalidUserException e) {
+			fail(e.getMessage());
+		}
 	}
 
 	@Test
-	 void testValidateFirstNameTestFail() {
+	void testValidateFirstNameTestFail() {
 		UserValidator validation = new UserValidator();
-		assertFalse(validation.validateFirstname("bhiraHatees"));
+		assertThrows(InvalidUserException.class, () -> validation.validateFirstname("bhiraHatees"));
 	}
 
 	@Test
-	 void testValidateLastNameTestPass() {
+	void testValidateLastNameTestPass() {
 		UserValidator validation = new UserValidator();
-		assertTrue(validation.validateFirstname("Periysamy"));
+		try {
+			assertTrue(validation.validateFirstname("Periysamy"));
+		} catch (InvalidUserException e) {
+			fail(e.getMessage());
+		}
 	}
 
 	@Test
-	 void testValidateLastNameTestFail() {
+	void testValidateLastNameTestFail() {
 		UserValidator validation = new UserValidator();
-		assertFalse(validation.validateFirstname("PeriYasamy"));
+		assertThrows(InvalidUserException.class, () -> validation.validateFirstname("PeriYasamy"));
 	}
 
 	@Test
-	 void testValidPassword() {
+	void testValidPassword() {
 
-		assertTrue(UserValidator.validatePassword("Password@123"));
-
-	}
-
-	@Test
-	 void testInvalidPasswordWithoutSpecialCharacters() {
-		assertFalse(UserValidator.validatePassword("Password123"));
-
-	}
-
-	@Test
-	 void testInvalidPasswordWithoutNumbers() {
-		assertFalse(UserValidator.validatePassword("Password@"));
+		try {
+			assertTrue(UserValidator.validatePassword("Bhirahatees@123"));
+		} catch (InvalidUserException e) {
+			fail(e.getMessage());
+		}
 
 	}
 
 	@Test
-	 void testInvalidPasswordWithoutCapitalLetters() {
-		assertFalse(UserValidator.validatePassword("password123"));
+	void testInvalidPasswordWithoutSpecialCharacters() {
+		assertThrows(InvalidUserException.class, () -> UserValidator.validatePassword("Bhirahateesz123"));
 
 	}
 
 	@Test
-	 void testInvalidPasswordWithoutSmallLetters() {
-		assertFalse(UserValidator.validatePassword("PASSWORD@123"));
+	void testInvalidPasswordWithoutNumbers() {
+		assertThrows(InvalidUserException.class, () -> UserValidator.validatePassword("bhirahatees@"));
 
 	}
 
 	@Test
-	 void testInvalidPasswordShorterLength() {
-		assertFalse(UserValidator.validatePassword("Pas@123"));
+	void testInvalidPasswordWithoutCapitalLetters() {
+		assertThrows(InvalidUserException.class, () -> UserValidator.validatePassword("bhirahatees123"));
 
 	}
 
 	@Test
-	 void testValidateTeamCodeTestPass() {
+	void testInvalidPasswordWithoutSmallLetters() {
+	assertThrows(InvalidUserException.class,()->UserValidator.validatePassword("BHIRAHATEES123"));
+
+	}
+
+	@Test
+	void testInvalidPasswordShorterLength() {
+	assertThrows(InvalidUserException.class,()->UserValidator.validatePassword("Bhi123"));
+
+	}
+
+	@Test
+	void testValidateTeamCodeTestPass() {
 		UserValidator validation = new UserValidator();
-		assertTrue(validation.validateTeamCode("H2GH21"));
+		try {
+			assertTrue(validation.validateTeamCode("H2GH21"));
+		} catch (InvalidUserException e) {
+			fail(e.getMessage());
+		}
 	}
 
 	@Test
-	 void testValidateTeamCodeTestFail() {
+	void testValidateTeamCodeTestFail() {
 		UserValidator validation = new UserValidator();
-		assertFalse(validation.validateTeamCode("H#Q)VA"));
+		assertThrows(InvalidUserException.class, () -> validation.validateTeamCode("H#Q)VA"));
+	}
+	
+	@Test
+	void testValidateUserPass() {
+		User user = new User("Bhirahateesvaran", "Periyasamy","bhirahatees.periyasamy@fssa.freshworks.com", "H2GH21", "Bhirahatees@123");
+		try {
+			assertTrue(UserValidator.validateUser(user));
+		} catch (InvalidUserException e) {
+		fail(e.getMessage());
+		}
+	}
+	@Test
+	void testValidateUserFail() {
+		User user = new User("bhirahateesvaran", "Periyasamy","bhirahatees.periyasamy@fssa.freshworks.com", "H2GH21", "Bhirahatees@123");
+	    assertThrows(InvalidUserException.class,()-> UserValidator.validateUser(user));
 	}
 
 }

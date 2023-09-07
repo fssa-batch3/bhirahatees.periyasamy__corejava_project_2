@@ -11,17 +11,20 @@ public class UserValidator {
 
 	public static boolean validateUser(User user1) throws InvalidUserException {
 
-		if (user1 != null && validateFirstname(user1.getFirstname()) && validateFirstname(user1.getLastname())
-				&& validateTeamCode(user1.getTeamCode()) && validatePassword(user1.getPassword())
-				&& validateEmail(user1.getEmail())) {
-			return true;
-		} else {
-			throw new InvalidUserException("User details not valid");
+		try {
+			if (user1 != null && validateFirstname(user1.getFirstname()) && validateFirstname(user1.getLastname())
+					&& validateTeamCode(user1.getTeamCode()) && validatePassword(user1.getPassword())
+					&& validateEmail(user1.getEmail())) {
+				return true;
+			}
+		} catch (InvalidUserException e) {
+			throw new InvalidUserException(e.getMessage());
 		}
+		return false;
 
 	}
 
-	public static boolean validateFirstname(String name) {
+	public static boolean validateFirstname(String name) throws InvalidUserException {
 
 		if (name == null)
 			return false;
@@ -29,10 +32,13 @@ public class UserValidator {
 		String regex = "^[A-Z]+[a-z]{0,16}$";
 		Pattern p = Pattern.compile(regex);
 		Matcher m = p.matcher(name);
-		return m.matches();
+		if (m.matches())
+			return true;
+		else
+			throw new InvalidUserException("Invalid Firstname or Lastname");
 	}
 
-	public static boolean validatePassword(String password) {
+	public static boolean validatePassword(String password) throws InvalidUserException {
 
 		if (password == null)
 			return false;
@@ -41,17 +47,24 @@ public class UserValidator {
 		Pattern pattern = Pattern.compile(patternString);
 		Matcher check = pattern.matcher(password);
 
-		return check.matches();
+		if (check.matches())
+			return true;
+		else
+			throw new InvalidUserException(
+					"Invalid Password Password contain at least one lowercase letter, one uppercase letter, one digit, one special character from the set [@#$%^&+=]");
 	}
 
-	public static boolean validateTeamCode(String password) {
-		if (password == null)
+	public static boolean validateTeamCode(String teamcode) throws InvalidUserException {
+		if (teamcode == null)
 			return false;
 		String patternString = "^[A-Z0-9]{6}$";
-		return Pattern.matches(patternString, password);
+		if (Pattern.matches(patternString, teamcode))
+			return true;
+		else
+			throw new InvalidUserException("Teamcode not contains special characters");
 	}
 
-	public static boolean validateEmail(String email) {
+	public static boolean validateEmail(String email) throws InvalidUserException {
 
 		if (email == null)
 			return false;
@@ -60,13 +73,14 @@ public class UserValidator {
 		try {
 			Pattern pattern = Pattern.compile(regex);
 			Matcher matcher = pattern.matcher(email);
-			return matcher.matches();
-		} catch (PatternSyntaxException ex) {
+			if (!matcher.matches())
+				throw new InvalidUserException("Invalid email");
+			else
+				return true;
+		} catch (PatternSyntaxException e) {
 			return false;
 		}
 
 	}
-
-
 
 }

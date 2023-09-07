@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 import com.fssa.pupdesk.model.Ticket;
 import com.fssa.pupdesk.model.User;
 import com.fssa.pupdesk.validation.exceptions.InvalidTicketException;
+import com.fssa.pupdesk.validation.exceptions.InvalidUserException;
 
 public class TicketValidator {
 	public static boolean validateTicket(Ticket ticket) throws InvalidTicketException {
@@ -22,40 +23,64 @@ public class TicketValidator {
 
 	}
 
-	public static boolean validateTime(String dateTimeString) {
+	public static boolean validateTime(String dateTimeString) throws InvalidTicketException {
 		LocalDateTime currentDateTime = LocalDateTime.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		LocalDateTime parsedDateTime = LocalDateTime.parse(dateTimeString, formatter);
-		return !parsedDateTime.isAfter(currentDateTime);
+		if (!parsedDateTime.isAfter(currentDateTime)) {
+			return true;
+		}else {
+			throw new InvalidTicketException("Something happens in Date");
+		}
 	}
 
-	public static boolean validateTicketEmail(String email) {
-		return UserValidator.validateEmail(email);
+	public static boolean validateTicketEmail(String email) throws InvalidTicketException {
+		try {
+			return UserValidator.validateEmail(email);
+				
+		} catch (InvalidUserException e) {
+			throw new InvalidTicketException("Email is Invalid");
+		}
 
 	}
 
-	public static boolean validateSummary(String summary) {
+	public static boolean validateSummary(String summary) throws InvalidTicketException {
 		if (summary == null) {
-			return false;
+			throw new InvalidTicketException("Summary Must contain in the ticket");
 		}
 		String regex = "^.{2,60}$";
-		return Pattern.matches(regex, summary);
+		if(Pattern.matches(regex, summary))
+			return true;
+		else
+			throw new InvalidTicketException("Summary is not more than 60 characters");
 	}
 
-	public static boolean validatePriority(String priority) {
-		return (priority.equalsIgnoreCase("high") || priority.equalsIgnoreCase("medium")
-				|| priority.equalsIgnoreCase("low"));
+	public static boolean validatePriority(String priority) throws InvalidTicketException {
+		if (priority.equalsIgnoreCase("high") || priority.equalsIgnoreCase("medium")
+				|| priority.equalsIgnoreCase("low")) {
+			return true;
+		}else {
+			throw new InvalidTicketException("Something happends in the priority");
+		}
 
 	}
 
-	public static boolean validateStatus(String status) {
-		return (status.equalsIgnoreCase("pending") || status.equalsIgnoreCase("open")
-				|| status.equalsIgnoreCase("on progress") || status.equalsIgnoreCase("closed"));
+	public static boolean validateStatus(String status) throws InvalidTicketException {
+		if (status.equalsIgnoreCase("pending") || status.equalsIgnoreCase("open")
+				|| status.equalsIgnoreCase("on progress") || status.equalsIgnoreCase("closed")) {
+			return true;
+		}else {
+			throw new InvalidTicketException("Something happends in status");
+		}
 	}
 
-	public static boolean validateTicketId(String ticketId) {
+	public static boolean validateTicketId(String ticketId) throws InvalidTicketException {
 		String regex = "[0-9A-F]{2}([0-9A-F]{2}){6}";
-		return Pattern.matches(regex, ticketId);
+		if(Pattern.matches(regex, ticketId)) {
+			return true;
+		}else {
+			throw new InvalidTicketException("Failed to generate Ticket ID");
+		}
 
 	}
 

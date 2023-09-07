@@ -55,13 +55,14 @@ class TestTicketService {
 	@Test
 	void testUpdateTicketServicePass() throws ServiceException {
 		TicketService ticket = new TicketService();
-		assertTrue(ticket.updateTicketStatusService("6C391430D0ADA6","Sorry for the issue Bhirahatees We'll fix that issue for you \n , Thank You For reporting to us"));
+		assertTrue(ticket.updateTicketStatusService("6C391430D0ADA6",
+				"Sorry for the issue Bhirahatees We'll fix that issue for you \n , Thank You For reporting to us"));
 	}
 
 	@Test
 	void testUpdateTicketServiceFail() {
 		TicketService ticket = new TicketService();
-		assertThrows(ServiceException.class, () -> ticket.updateTicketStatusService("A9B01DC0D11#$%8",""));
+		assertThrows(ServiceException.class, () -> ticket.updateTicketStatusService("A9B01DC0D11#$%8", ""));
 	}
 
 	@Test
@@ -83,6 +84,19 @@ class TestTicketService {
 		assertThrows(ServiceException.class, () -> {
 			service.getTicketbyService("invalid.email@fssa.freshworks.com", "complete");
 		});
+	}
+    @Test
+	void testGetTicketByIdServicePass() {
+		try {
+			assertNotNull(new TicketService().getTicketByIdService("6C391430D0ADA6"));
+		} catch (ServiceException e) {
+			fail(e.getMessage());
+		}
+	}
+    @Test
+	void testGetTicketByIdServiceFail() {
+		assertThrows(ServiceException.class, () -> new TicketService().getTicketByIdService("6C391430M0ADA6"));
+
 	}
 
 }

@@ -52,7 +52,7 @@ public class TicketService {
 			} else {
 				throw new ServiceException("Invalid Ticket Id");
 			}
-		} catch (DAOException e) {
+		} catch (DAOException | InvalidTicketException e) {
 			throw new ServiceException("Failed To Update the Ticket");
 		}
 		return isUpdated;
@@ -82,7 +82,6 @@ public class TicketService {
 	public Ticket getTicketByIdService(String ticketId) throws ServiceException {
 		try {
 			Ticket ticket = new TicketDAO().getTicketById(ticketId);
-			System.out.println("1"+ticket.toString());
 			new TicketValidator().validateTicket(ticket);
 			return ticket;
 		} catch (DAOException | InvalidTicketException e) {
@@ -90,13 +89,5 @@ public class TicketService {
 		}
 	}
 	
-	public static void main(String[] args) {
-		try {
-			Ticket ticket = new TicketService().getTicketByIdService("6C391430D0ADA6");
-			System.out.println(ticket.toString());
-		} catch (ServiceException e) {
-			System.out.println("Failed");
-		}
-		
-	}
+	
 }
