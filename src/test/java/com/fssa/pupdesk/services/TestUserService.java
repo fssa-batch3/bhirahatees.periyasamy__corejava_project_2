@@ -141,8 +141,7 @@ class TestUserService {
 	@Test
 	void testGetSameTeamUsersServicePass() {
 		try {
-			assertNotNull(new UserService().getSameTeamUsersService("bhirahatees.periysamy@fssa.freshworks.com",
-					"Bhirahatees@123"));
+			assertNotNull(new UserService().getSameTeamUsersService("bhirahatees.periysamy@fssa.freshworks.com"));
 		} catch (ServiceException e) {
 
 			fail();
@@ -152,7 +151,7 @@ class TestUserService {
 	@Test
 	void testGetSameTeamUsersServiceFail() {
 		try {
-			assertNull(new UserService().getSameTeamUsersService("settu@gmail.com", "Goafwtaam@123"));
+			assertNull(new UserService().getSameTeamUsersService("settu@gmail.com"));
 		} catch (ServiceException e) {
 			fail();
 		}

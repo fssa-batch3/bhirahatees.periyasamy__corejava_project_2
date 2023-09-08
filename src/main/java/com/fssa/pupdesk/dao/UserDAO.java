@@ -18,29 +18,44 @@ public class UserDAO {
 	// Connect to database
 	ConnectionUtil dbConnection = new ConnectionUtil();
 
-	// Get user from DB - Login
-	public User login(String email, String password) throws DAOException {
-		String selectQuery = "SELECT * FROM users WHERE email = ? AND password = ?";
+	/**
+	 * Retrieves a user from the database based on their email address.
+	 *
+	 * @param email The email address of the user to retrieve.
+	 * @return A User object representing the retrieved user, or null if the user
+	 *         does not exist.
+	 * @throws DAOException If there is an error while accessing the database.
+	 */
+	public User login(String email) throws DAOException {
+		// Method to retrieve a user based on their email address
+		String selectQuery = "SELECT * FROM users WHERE email = ?";
 		User user = null;
 		try (Connection connection = dbConnection.getConnection();
 				PreparedStatement statement = connection.prepareStatement(selectQuery)) {
 			statement.setString(1, email);
-			statement.setString(2, password);
 			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
 				user = new User(rs.getString(FIRSTNAME), rs.getString(LASTNAME), rs.getString(EMAIL),
 						rs.getNString(TEAMCODE), rs.getString(PASSWORD));
 				user.setProfileImageUrl(rs.getString("profile_image_url"));
+				user.setPassword(rs.getString(PASSWORD));
 			}
 			return user;
 		} catch (SQLException e) {
-			throw new DAOException("Failed to Login");
+			throw new DAOException("User Not Exists");
 		}
-
 	}
 
+	/**
+	 * Creates a new user in the database.
+	 *
+	 * @param user The User object representing the user to create.
+	 * @return True if the user was successfully created, false otherwise.
+	 * @throws DAOException If there is an error while accessing the database.
+	 */
 	public boolean createUser(User user) throws DAOException {
-		String insertQuery = "INSERT INTO users (firstname, lastname, email, teamcode, password,profile_image_url)VALUES(?,?,?,?,?,?)";
+		// Method to create a new user in the database
+		String insertQuery = "INSERT INTO users (firstname, lastname, email, teamcode, password, profile_image_url) VALUES(?,?,?,?,?,?)";
 
 		try (Connection connection = dbConnection.getConnection();
 				PreparedStatement statement = connection.prepareStatement(insertQuery)) {
@@ -55,46 +70,69 @@ public class UserDAO {
 			// Return successful or not
 			return rows == 1;
 		} catch (SQLException e) {
-			throw new DAOException("Failed to register User");
+			throw new DAOException(e.getMessage());
 		}
 	}
 
-	// Updating User from Email
+	/**
+	 * Updates a user's information in the database based on their email address.
+	 *
+	 * @param user The User object representing the updated user information.
+	 * @return The updated User object, or null if the update failed.
+	 * @throws DAOException If there is an error while accessing the database.
+	 */
 	public User updateUser(User user) throws DAOException {
+		// Method to update user information based on their email address
+		final String query = "UPDATE users SET firstname = ?,lastname = ? ,password = ? ,profile_image_url = ? WHERE email = ?";
 		try (Connection connection = dbConnection.getConnection();
-				PreparedStatement updateStatement = connection.prepareStatement(
-						"UPDATE users SET firstname = ?,lastname = ? ,password = ? ,profile_image_url = ? WHERE email = ?");) {
+				PreparedStatement updateStatement = connection.prepareStatement(query);) {
+
 			updateStatement.setString(1, user.getFirstname());
 			updateStatement.setString(2, user.getLastname());
 			updateStatement.setString(3, user.getPassword());
 			updateStatement.setString(4, user.getProfileImageUrl());
 			updateStatement.setString(5, user.getEmail());
 			int rows = updateStatement.executeUpdate();
+			System.out.println(rows);
 			if (rows > 1) {
 				return null;
 			}
+
 			return user;
 		} catch (SQLException e) {
-			throw new DAOException("Failed to Update" + e.getMessage());
+			throw new DAOException(e.getMessage());
 		}
-
 	}
 
-	// Deleting the user from the table
+	/**
+	 * Deletes a user from the database based on their email address.
+	 *
+	 * @param email The email address of the user to delete.
+	 * @return True if the user was successfully deleted, false otherwise.
+	 * @throws DAOException If there is an error while accessing the database.
+	 */
 	public boolean deleteUser(String email) throws DAOException {
+		// Method to delete a user based on their email address
 		String deleteQuery = "DELETE FROM users WHERE email =?";
 		try (Connection connection = dbConnection.getConnection();
-				PreparedStatement statment = connection.prepareStatement(deleteQuery)) {
-			statment.setString(1, email);
-			int rows = statment.executeUpdate();
+				PreparedStatement statement = connection.prepareStatement(deleteQuery)) {
+			statement.setString(1, email);
+			int rows = statement.executeUpdate();
 			return rows == 1;
 		} catch (SQLException e) {
-			throw new DAOException(e);
+			throw new DAOException("Failed to Delete User");
 		}
 	}
 
-	public List<User> getSameTeamUsers(String email, String password) throws DAOException {
-		User user = new UserDAO().login(email, password);
+	/**
+	 * Retrieves a list of users in the same team as the given user's email address.
+	 *
+	 * @param email The email address of the user to find team members for.
+	 * @return A List of User objects representing the team members.
+	 * @throws DAOException If there is an error while accessing the database.
+	 */
+	public List<User> getSameTeamUsers(String email) throws DAOException {
+		User user = new UserDAO().login(email);
 		ArrayList<User> members = new ArrayList<User>();
 		try (Connection connection = dbConnection.getConnection();
 				PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE teamcode = ?")) {
@@ -108,8 +146,9 @@ public class UserDAO {
 			}
 			return members;
 		} catch (SQLException e) {
-			throw new DAOException("Failed to get team");
+			throw new DAOException("Failed to get Class Mates");
 		}
 	}
 
+	
 }
