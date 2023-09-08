@@ -25,10 +25,6 @@ public class ConnectionUtil {
 		dbUrl = System.getenv("DB_URL");
 		dbUser = System.getenv("DB_USER");
 		dbPassword = System.getenv("DB_PASSWORD");
-		
-//		dbUrl = "jdbc:mysql://localhost/project";
-//		dbUser = "root";
-//		dbPassword = "12345678";		
 
 		try {
 			// Load the MySQL JDBC driver

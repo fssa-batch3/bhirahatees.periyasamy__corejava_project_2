@@ -118,7 +118,7 @@ public class TicketService {
 	public Ticket getTicketByIdService(String ticketId) throws ServiceException {
 		try {
 			Ticket ticket = new TicketDAO().getTicketById(ticketId);
-			new TicketValidator().validateTicket(ticket);
+			TicketValidator.validateTicket(ticket);
 			return ticket;
 		} catch (DAOException | InvalidTicketException e) {
 			throw new ServiceException(e.getMessage());

@@ -93,7 +93,6 @@ public class UserDAO {
 			updateStatement.setString(4, user.getProfileImageUrl());
 			updateStatement.setString(5, user.getEmail());
 			int rows = updateStatement.executeUpdate();
-			System.out.println(rows);
 			if (rows > 1) {
 				return null;
 			}
@@ -133,7 +132,11 @@ public class UserDAO {
 	 */
 	public List<User> getSameTeamUsers(String email) throws DAOException {
 		User user = new UserDAO().login(email);
+		
 		ArrayList<User> members = new ArrayList<User>();
+		if(user == null) {
+			return members;
+		}
 		try (Connection connection = dbConnection.getConnection();
 				PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE teamcode = ?")) {
 			statement.setString(1, user.getTeamCode());
