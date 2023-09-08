@@ -107,7 +107,7 @@ Develop a Java-based help desk to address and resolve a wide range of issues tha
 - List all users: (Librarian)
     - Show a list of all registered users.
 
-### Book Module :
+### Ticket Module :
 
 - Raise a Ticket:
     - Allow to raise a new Ticket.
