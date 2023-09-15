@@ -1,6 +1,4 @@
-USE project;
-
-DROP TABLE tickets;
+USE bhirahatees_periyasamy_corejava_project;
 
 CREATE TABLE IF NOT EXISTS users(
   firstname VARCHAR(16),
@@ -10,19 +8,6 @@ CREATE TABLE IF NOT EXISTS users(
   password VARCHAR(16),
   profile_image_url VARCHAR(255)
 );
-
-DROP TABLE users;
-
-ALTER TABLE users
-ADD islogged boolean;
-
-DELETE FROM users where email = "bhirahatees@fssa.freshworks.com"; 
-
-SELECT * FROM users;
-
-
-INSERT INTO users (firstname, lastname, email, teamcode, password)
-VALUES ('Bhirahatees', 'Periyasamy', 'bhirahatees.periysamy@fssa.freshworks.com', 'IQU6A1', 'Bhirahatees@123');	
 
 
 CREATE TABLE IF NOT EXISTS tickets(
@@ -37,21 +22,8 @@ CREATE TABLE IF NOT EXISTS tickets(
   closing_description VARCHAR(500)
 );
 
-DROP TABLE tickets;
+SELECT * FROM users;
 
-SELECT * FROM tickets;		
-
-CREATE TABLE IF NOT EXISTS comments(
-comment_description VARCHAR(500),
-comment_id INT AUTO_INCREMENT,
-ticket_id VARCHAR(34),
-createdate DATETIME,
-FOREIGN KEY (ticketid) REFERENCES tickets(ticketid)
-);
-
-
-
-INSERT INTO tickets (fromEmail , toEmail , summary , ticketId , priority , status,description) VALUES(?,?,?,?,?,?,?); 
-
+SELECT * FROM tickets;
 
 

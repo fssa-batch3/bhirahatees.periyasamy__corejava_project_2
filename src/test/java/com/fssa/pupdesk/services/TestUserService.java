@@ -1,9 +1,10 @@
 package com.fssa.pupdesk.services;
 
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThrows;
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -48,7 +49,7 @@ class TestUserService {
 	void testSuccesLogin() {
 		UserService userService = new UserService();
 		try {
-			boolean user = userService.loginUser("arunkumar.dhanraj@fssa.freshworks.com", "Arun@123");
+			boolean user = userService.loginUser("gowtham@freshworks.com", "Gowtham@123");
 			System.out.println(user);
 			assertTrue(user);
 		} catch (ServiceException e) {
@@ -61,14 +62,8 @@ class TestUserService {
 	void testFailLogin() {
 		UserService userService = new UserService();
 		UserDAO loginUser = new UserDAO();
-
-		try {
-			boolean user = userService.loginUser("arunkumar.dhanraj@fssa.freshworks.com", "Arun@123");
-			System.out.println(user);
-			assertFalse(user);
-		} catch (ServiceException e) {
-			System.out.print("Invalid Credentials");
-		}
+		assertThrows(ServiceException.class,
+				() -> userService.loginUser("arunkumar.dhanraj@fssa.freshworks.com", "Arun@123"));
 	}
 
 	@Test
@@ -76,7 +71,7 @@ class TestUserService {
 
 		UserService userService = new UserService();
 		User user1 = null;
-		assertThrows(ServiceException.class,()->userService.registerUser(user1));
+		assertThrows(ServiceException.class, () -> userService.registerUser(user1));
 
 	}
 
@@ -114,7 +109,7 @@ class TestUserService {
 	@Test
 	void testDeleteUserPass() {
 		UserService user = new UserService();
-		String delete = "gowtham.sathyamoorthy@fssa.freshworks.com";
+		String delete = "gowtham@freshworks.com";
 		try {
 			assertTrue(user.deleteUserService(delete));
 		} catch (ServiceException e) {

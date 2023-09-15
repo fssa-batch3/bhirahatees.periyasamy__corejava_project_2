@@ -116,4 +116,14 @@ public class UserValidator {
 			return false;
 		}
 	}
+	
+	public static void main (String[] args) {
+		UserValidator valid = new UserValidator();	
+		try {
+			System.out.println(valid.validateEmail("spvaran123@gmail.com"));
+		} catch (InvalidUserException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

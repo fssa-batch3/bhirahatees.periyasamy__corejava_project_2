@@ -236,6 +236,5 @@ public class Ticket {
 				+ priority + ", status=" + status + ", description=" + description + " , Created Time=" + createdTime
 				+ "]";
 	}
-	
-	
+
 }

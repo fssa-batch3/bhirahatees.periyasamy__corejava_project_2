@@ -105,7 +105,7 @@ import com.fssa.pupdesk.validation.exceptions.InvalidUserException;
 	@Test
 	 void TestValidateTicketPass() {
 		Ticket ticket = new Ticket("bhirahatees.periysamay@fssa.freshworks.com",
-				"gowtham.sathayamoorthy@fssa.freshworks.com", "SQL Workbench not working", "High", "Pending",
+				"gowtham.sath yamoorthy@fssa.freshworks.com", "SQL Workbench not working", "High", "Pending",
 				"While writing the testcases it's not working");
 		try {
 			assertTrue(new TicketValidator().validateTicket(ticket));

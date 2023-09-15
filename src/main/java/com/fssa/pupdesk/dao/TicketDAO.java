@@ -145,24 +145,12 @@ public class TicketDAO {
 	 * @throws DAOException If there is an error while accessing the database.
 	 */
 	public Ticket getTicketById(String ticketId) throws DAOException {
-		Ticket ticket = new Ticket();
 		String selectQuery = "SELECT * FROM tickets WHERE ticket_id = ?";
 		try (Connection connect = dbConnection.getConnection();
 				PreparedStatement statement = connect.prepareStatement(selectQuery)) {
 			statement.setString(1, ticketId);
 			ResultSet resultData = statement.executeQuery();
-			while (resultData.next()) {
-				ticket.setCreatedTime(resultData.getString("created_at"));
-				ticket.setDescription(resultData.getString("description"));
-				ticket.setFrom(resultData.getString("from_email"));
-				ticket.setPriority(resultData.getString("priority"));
-				ticket.setStatus(resultData.getString("status"));
-				ticket.setSummary(resultData.getString("summary"));
-				ticket.setTicketId(resultData.getString("ticket_id"));
-				ticket.setTo(resultData.getString("to_email"));
-				ticket.setClosingDescription(resultData.getString("closing_description"));
-			}
-			return ticket;
+			return extractDataFromResultSet(resultData).get(0);
 		} catch (SQLException e) {
 			throw new DAOException("Failed to get Tickets");
 		}

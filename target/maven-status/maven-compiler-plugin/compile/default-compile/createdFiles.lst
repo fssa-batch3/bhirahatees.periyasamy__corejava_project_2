@@ -4,10 +4,8 @@ com\fssa\pupdesk\services\exceptions\ServiceException.class
 com\fssa\pupdesk\validation\exceptions\InvalidTicketException.class
 com\fssa\pupdesk\dao\UserDAO.class
 com\fssa\pupdesk\validation\exceptions\InvalidUserException.class
-com\fssa\pupdesk\model\Comment.class
 com\fssa\pupdesk\services\UserService.class
 com\fssa\pupdesk\validation\TicketValidator.class
-com\fssa\pupdesk\dao\CommentDAO.class
 com\fssa\pupdesk\dao\exceptions\DAOException.class
 com\fssa\pupdesk\validation\UserValidator.class
 com\fssa\pupdesk\dao\TicketDAO.class

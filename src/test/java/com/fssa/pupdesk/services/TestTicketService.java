@@ -57,7 +57,7 @@ class TestTicketService {
 	@Test
 	void testUpdateTicketServicePass() throws ServiceException {
 		TicketService ticket = new TicketService();
-		assertTrue(ticket.updateTicketStatusService("75D8DC5145E0AE",
+		assertTrue(ticket.updateTicketStatusService("361B6C15AA9E8D",
 				"Sorry for the issue Bhirahatees We'll fix that issue for you \n , Thank You For reporting to us"));
 	}
 
@@ -73,7 +73,7 @@ class TestTicketService {
 	void testGetTicketServicePass() {
 		TicketService service = new TicketService();
 		try {
-			assertNotNull(service.getTicketbyService("bhirahatees.periysamy@fssa.freshworks.com", "Closed"));
+			assertNotNull(service.getTicketbyService("bhirahatees.periysamy@fssa.freshworks.com", "Pending"));
 		} catch (ServiceException e) {
 			fail();
 		}
@@ -92,7 +92,7 @@ class TestTicketService {
 	@Test
 	void testGetTicketByIdServicePass() {
 		try {
-			assertNotNull(new TicketService().getTicketByIdService("75D8DC5145E0AE"));
+			assertNotNull(new TicketService().getTicketByIdService("361B6C15AA9E8D"));
 		} catch (ServiceException e) {
 			fail(e.getMessage());
 		}
