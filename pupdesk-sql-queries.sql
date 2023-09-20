@@ -22,8 +22,27 @@ CREATE TABLE IF NOT EXISTS tickets(
   closing_description VARCHAR(500)
 );
 
+CREATE TABLE IF NOT EXISTS comments(
+comment_id INT AUTO_INCREMENT PRIMARY KEY,
+name VARCHAR(35),
+email VARCHAR(255),
+comment_description VARCHAR(350),
+ticket_id VARCHAR(34),
+is_edited BOOLEAN,
+created_at DATETIME
+);
+
+
+
+DROP TABLE users;
+
+DROP TABLE tickets;
+
 SELECT * FROM users;
 
 SELECT * FROM tickets;
+
+
+SELECT * FROM comments;
 
 

@@ -64,7 +64,7 @@ public class UserService {
 	 * @return The user with the specified email and password.
 	 * @throws ServiceException If there is an issue retrieving the user.
 	 */
-	public User getUser(String email, String password) throws ServiceException {
+	public User getUser(String email) throws ServiceException {
 		UserDAO userDAO = new UserDAO();
 		User user = null;
 		try {
