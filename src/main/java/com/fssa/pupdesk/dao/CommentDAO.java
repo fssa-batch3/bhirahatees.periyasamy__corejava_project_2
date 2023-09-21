@@ -24,7 +24,7 @@ public class CommentDAO {
 			statement.setString(2, ticketComment.getName());
 			statement.setString(3, ticketComment.getEmail());
 			statement.setString(4, ticketComment.getComment());
-			statement.setBoolean(5, false);
+			statement.setBoolean(5, ticketComment.isEdited());
 			statement.setString(6, ticketComment.getCreatedTime());
 			int rows = statement.executeUpdate();
 			return rows == 1;
