@@ -1,4 +1,4 @@
-package com.fssa.pupdesk.services;
+	package com.fssa.pupdesk.services;
 
 
 
@@ -60,7 +60,6 @@ public class UserService {
 	 * Retrieves a user by their email and password.
 	 *
 	 * @param email    The user's email.
-	 * @param password The user's password.
 	 * @return The user with the specified email and password.
 	 * @throws ServiceException If there is an issue retrieving the user.
 	 */
@@ -68,7 +67,7 @@ public class UserService {
 		UserDAO userDAO = new UserDAO();
 		User user = null;
 		try {
-			user = userDAO.login(email);
+			user = userDAO.getUser(email);
 			UserValidator.validateUser(user);
 			return user;
 		} catch (DAOException | InvalidUserException e) {

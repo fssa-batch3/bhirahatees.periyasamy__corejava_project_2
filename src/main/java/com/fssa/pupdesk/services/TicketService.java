@@ -1,13 +1,15 @@
 package com.fssa.pupdesk.services;
 
+import java.util.List;
+
 import com.fssa.pupdesk.dao.TicketDAO;
+import com.fssa.pupdesk.dao.UserDAO;
 import com.fssa.pupdesk.dao.exceptions.DAOException;
 import com.fssa.pupdesk.model.Ticket;
+import com.fssa.pupdesk.model.User;
 import com.fssa.pupdesk.services.exceptions.ServiceException;
 import com.fssa.pupdesk.validation.TicketValidator;
 import com.fssa.pupdesk.validation.exceptions.InvalidTicketException;
-
-import java.util.List;
 
 /**
  * Service class for managing ticket-related operations.
@@ -122,6 +124,33 @@ public class TicketService {
 			return ticket;
 		} catch (DAOException | InvalidTicketException e) {
 			throw new ServiceException(e.getMessage());
+		}
+	}
+
+	public boolean isreceiverAndRaiserInSameTeam(String raiser, String receiver) throws ServiceException {
+		try {
+			// Assuming 'raiser' and 'receiver' are instances of the User class
+			User raiserUser = new UserDAO().login(raiser);
+			User receiverUser = new UserDAO().login(receiver);
+
+			if (receiverUser == null) {
+				// Receiver does not exist
+				throw new ServiceException("Receiver does not exist");
+			}
+
+			String raiserClass = raiserUser.getTeamCode();
+			String receiverClass = receiverUser.getTeamCode();
+
+			if (raiserClass.equals(receiverClass)) {
+				// Receiver belongs to the same team as raiser
+				return true;
+			} else {
+				throw new ServiceException("Receiver does not belong to the same team as raiser");
+			}
+
+		} catch (DAOException e) {
+			// Handle any DAOException that may occur
+			throw new ServiceException("Something went wrong while accessing the database", e);
 		}
 	}
 }

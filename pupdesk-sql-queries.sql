@@ -1,4 +1,5 @@
 USE bhirahatees_periyasamy_corejava_project;
+USE project;
 
 CREATE TABLE IF NOT EXISTS users(
   firstname VARCHAR(16),
@@ -17,19 +18,19 @@ CREATE TABLE IF NOT EXISTS tickets(
   ticket_id VARCHAR(34) PRIMARY KEY,
   created_at DATETIME,
   priority VARCHAR(16),
-  status VARCHAR(16),
+  status VARCHAR(16), 
   description VARCHAR(500),
   closing_description VARCHAR(500)
 );
 
 CREATE TABLE IF NOT EXISTS comments(
 comment_id INT AUTO_INCREMENT PRIMARY KEY,
-name VARCHAR(35),
-email VARCHAR(255),
-comment_description VARCHAR(350),
-ticket_id VARCHAR(34),
-is_edited BOOLEAN,
-created_at DATETIME
+ name VARCHAR(35),
+ email VARCHAR(255),
+ comment_description VARCHAR(300),
+ ticket_id VARCHAR(34),
+ is_edited BOOLEAN,
+ created_at DATETIME
 );
 
 
@@ -37,12 +38,11 @@ created_at DATETIME
 DROP TABLE users;
 
 DROP TABLE tickets;
+DROP TABLE comments;
 
-SELECT * FROM users;
+SELECT * FROM users;	
+SELECT * FROM comments;
 
 SELECT * FROM tickets;
-
-
-SELECT * FROM comments;
 
 

@@ -34,7 +34,7 @@ public class CommentDAO {
 	}
 
 	public ArrayList<Comment> listCommentsByTicketId(String ticketId) throws DAOException {
-		String selectQuery = "SELECT * FROM comments WHERE ticket_id = ?";
+		String selectQuery = "SELECT * FROM comments WHERE ticket_id = ? ORDER BY created_at DESC";
 		ArrayList<Comment> comments = new ArrayList<Comment>();
 		try (Connection connect = dbConnection.getConnection();
 				PreparedStatement statement = connect.prepareStatement(selectQuery)) {
@@ -44,6 +44,7 @@ public class CommentDAO {
 				Comment comment = new Comment(rs.getString("ticket_id"), rs.getString("name"), rs.getString("email"),
 						rs.getString("comment_description"), rs.getBoolean("is_edited"));
 				comment.setCreatedTime(rs.getString("created_at"));
+				comment.setCommentId(rs.getInt("comment_id"));
 				comments.add(comment);
 			}
 		} catch (SQLException e) {

@@ -132,9 +132,9 @@ public class UserDAO {
 	 */
 	public List<User> getSameTeamUsers(String email) throws DAOException {
 		User user = new UserDAO().login(email);
-		
+
 		ArrayList<User> members = new ArrayList<User>();
-		if(user == null) {
+		if (user == null) {
 			return members;
 		}
 		try (Connection connection = dbConnection.getConnection();
@@ -143,7 +143,7 @@ public class UserDAO {
 			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
 				User userDetail = new User(rs.getString(FIRSTNAME), rs.getString(LASTNAME), rs.getString(EMAIL),
-						rs.getString(TEAMCODE), rs.getString(PASSWORD));
+						rs.getString(TEAMCODE),rs.getString(PASSWORD));
 				userDetail.setProfileImageUrl(rs.getString("profile_image_url"));
 				members.add(userDetail);
 			}
@@ -153,5 +153,25 @@ public class UserDAO {
 		}
 	}
 
+	public User getUser(String email) throws DAOException {
+		// Method to retrieve a user based on their email address
+		String selectQuery = "SELECT * FROM users WHERE email = ?";
+		User user = null;
+		try (Connection connection = dbConnection.getConnection();
+				PreparedStatement statement = connection.prepareStatement(selectQuery)) {
+			statement.setString(1, email);
+			ResultSet rs = statement.executeQuery();
+			while (rs.next()) {
+				user = new User(rs.getString(FIRSTNAME), rs.getString(LASTNAME), rs.getString(EMAIL),
+						rs.getNString(TEAMCODE),rs.getString(PASSWORD));
+				user.setProfileImageUrl(rs.getString("profile_image_url"));
+
+			}
+			return user;
+		} catch (SQLException e) {
+			throw new DAOException("User Not Exists");
+		}
+	}
 	
+
 }

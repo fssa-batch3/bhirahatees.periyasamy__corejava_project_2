@@ -78,7 +78,7 @@ public class TicketDAO {
 	 * @throws DAOException If there is an error while accessing the database.
 	 */
 	public List<Ticket> listTickets(String email) throws DAOException {
-		String selectQuery = "SELECT * FROM tickets WHERE from_email = ? OR to_email = ? OR to_email IS NULL";
+		String selectQuery = "SELECT * FROM tickets WHERE from_email = ? OR to_email = ? OR to_email IS NULL ORDER BY created_at DESC";
 		try (Connection connection = dbConnection.getConnection();
 				PreparedStatement statement = connection.prepareStatement(selectQuery)) {
 			statement.setString(1, email);

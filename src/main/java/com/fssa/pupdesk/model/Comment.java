@@ -4,6 +4,7 @@ import com.fssa.pupdesk.utils.CurrentTimeGenerator;
 
 public class Comment {
 
+	private int commentId;
 	private String name;
 	private String email;
 	private String comment;
@@ -67,9 +68,17 @@ public class Comment {
 	public void setCreatedTime(String creaetedTime) {
 		this.createdTime = creaetedTime;
 	}
-  
+
 	public String getCreatedTime() {
 		return createdTime;
+	}
+
+	public int getCommentId() {
+		return commentId;
+	}
+
+	public void setCommentId(int commentId) {
+		this.commentId = commentId;
 	}
 
 	@Override

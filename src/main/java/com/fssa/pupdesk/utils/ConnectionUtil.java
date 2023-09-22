@@ -26,15 +26,15 @@ public class ConnectionUtil {
 		dbUser = System.getenv("DB_USER");
 		dbPassword = System.getenv("DB_PASSWORD");
 
-//		String LOCAL_DB_URL = "jdbc:mysql://localhost/project";
-//		String LOCAL_DB_USER = "root";
-//		String LOCAL_DB_PASSWORD = "12345678";
+		String LOCAL_DB_URL = "jdbc:mysql://localhost/project";
+		String LOCAL_DB_USER = "root";
+		String LOCAL_DB_PASSWORD = "12345678";
 		try {
 			// Load the MySQL JDBC driver
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			// Create and return a database connection
-			return DriverManager.getConnection(dbUrl, dbUser, dbPassword);
+			return DriverManager.getConnection(LOCAL_DB_URL, LOCAL_DB_USER, LOCAL_DB_PASSWORD);
 		} catch (SQLException e) {
 			throw new RuntimeException("Unable to connect to the database", e);
 		} catch (ClassNotFoundException e) {
