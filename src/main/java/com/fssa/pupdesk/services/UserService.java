@@ -46,7 +46,10 @@ public class UserService {
 		UserDAO user1 = new UserDAO();
 		try {
 			User user = user1.login(email);
-			if (user.getPassword().equals(password)) {
+			if(user ==  null) {
+				throw new ServiceException("User Not Fount Please Sign In");
+			}
+			else if (user.getPassword().equals(password)) {
 				return UserValidator.validateUser(user);
 			} else {
 				throw new ServiceException("Password is Incorrect");

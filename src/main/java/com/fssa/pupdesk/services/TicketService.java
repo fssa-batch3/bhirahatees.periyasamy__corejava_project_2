@@ -153,4 +153,19 @@ public class TicketService {
 			throw new ServiceException("Something went wrong while accessing the database", e);
 		}
 	}
+
+	public boolean updateAndReassignTicketService(String summary, String toEmail, String priority, String description,
+			String ticketId) throws ServiceException {
+		try {
+			TicketDAO updateService = new TicketDAO();
+			if ((TicketValidator.validateSummary(summary) && TicketValidator.validateTicketEmail(toEmail)
+					&& TicketValidator.validateTicketId(ticketId))) {
+				System.out.println("Valid Ticket Update");
+			}
+			return updateService.updateTicket(summary, toEmail, priority, description, ticketId);
+
+		} catch (DAOException | InvalidTicketException e) {
+			throw new ServiceException(e.getMessage());
+		}
+	}
 }

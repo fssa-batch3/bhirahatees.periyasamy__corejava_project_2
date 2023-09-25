@@ -156,4 +156,20 @@ public class TicketDAO {
 		}
 	}
 
+	public boolean updateTicket(String summary, String toEmail, String priority, String description, String ticketID)
+			throws DAOException {
+		String updateQuery = "UPDATE tickets SET summary = ? , description = ?,priority = ? ,to_email = ? WHERE ticket_id = ?";
+		try (Connection connect = dbConnection.getConnection();
+				PreparedStatement statement = connect.prepareStatement(updateQuery)) {
+			statement.setString(1, summary);
+			statement.setString(2, description);
+			statement.setString(3, priority);
+			statement.setString(4, toEmail);
+			statement.setString(5, ticketID);
+			int row = statement.executeUpdate();
+			return row == 1;
+		} catch (SQLException e) {
+			throw new DAOException("Failed To Update Ticket");
+		}
+	}
 }
