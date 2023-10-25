@@ -132,7 +132,7 @@ public class UserDAO {
 	 */
 	public List<User> getSameTeamUsers(String email) throws DAOException {
 		User user = new UserDAO().login(email);
-
+        System.out.println(user.toString());
 		ArrayList<User> members = new ArrayList<User>();
 		if (user == null) {
 			return members;
@@ -140,6 +140,7 @@ public class UserDAO {
 		try (Connection connection = dbConnection.getConnection();
 				PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE teamcode = ?")) {
 			statement.setString(1, user.getTeamCode());
+			System.out.println(user.toString()	);
 			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
 				User userDetail = new User(rs.getString(FIRSTNAME), rs.getString(LASTNAME), rs.getString(EMAIL),
