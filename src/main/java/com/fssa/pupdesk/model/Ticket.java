@@ -9,6 +9,8 @@ import com.fssa.pupdesk.utils.CurrentTimeGenerator;
 public class Ticket {
 
 	private String from;
+	private String raiserName;
+	private String receiverName;
 	private String to;
 	private String summary;
 	private String ticketId;
@@ -35,7 +37,7 @@ public class Ticket {
 	 * @param status      The status of the ticket.
 	 * @param description A detailed description of the ticket.
 	 */
-	public Ticket(String from, String to, String summary, String priority, String status, String description) {
+	public Ticket(String from,String raiserName,String receiverName,String to, String summary, String priority, String status, String description) {
 		super();
 		this.from = from;
 		this.to = to;
@@ -45,6 +47,8 @@ public class Ticket {
 		this.status = status;
 		this.description = description;
 		this.createdTime = CurrentTimeGenerator.getCurrentDateTime();
+		this.raiserName = raiserName;
+		this.receiverName = receiverName;
 	}
 
 	/**
@@ -224,17 +228,29 @@ public class Ticket {
 	public void setClosingDescription(String closingDescription) {
 		this.closingDescription = closingDescription;
 	}
+	
+	public String getRaiserName() {
+		return raiserName;
+	}
 
-	/**
-	 * Returns a string representation of the Ticket object.
-	 *
-	 * @return A string containing ticket details.
-	 */
+	public String getReceiverName() {
+		return receiverName;
+	}
+
+	public void setRaiserName(String raiserName) {
+		this.raiserName = raiserName;
+	}
+
+	public void setReceiverName(String receiverName) {
+		this.receiverName = receiverName;
+	}
+
 	@Override
 	public String toString() {
-		return "Ticket [from=" + from + ", to=" + to + ", summary=" + summary + ", ticketId=" + ticketId + ", priority="
-				+ priority + ", status=" + status + ", description=" + description + " , Created Time=" + createdTime
-				+ "]";
+		return "Ticket [from=" + from + ", raiserName=" + raiserName + ", receiverName=" + receiverName + ", to=" + to
+				+ ", summary=" + summary + ", ticketId=" + ticketId + ", priority=" + priority + ", status=" + status
+				+ ", description=" + description + ", createdTime=" + createdTime + ", closingDescription="
+				+ closingDescription + "]";
 	}
 
 }

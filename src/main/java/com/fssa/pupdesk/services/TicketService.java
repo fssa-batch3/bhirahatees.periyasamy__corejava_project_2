@@ -154,7 +154,7 @@ public class TicketService {
 		}
 	}
 
-	public boolean updateAndReassignTicketService(String summary, String toEmail, String priority, String description,
+	public boolean updateAndReassignTicketService(String summary,String receiverName ,String toEmail, String priority, String description,
 			String ticketId) throws ServiceException {
 		try {
 			TicketDAO updateService = new TicketDAO();
@@ -162,7 +162,7 @@ public class TicketService {
 					&& TicketValidator.validateTicketId(ticketId))) {
 				System.out.println("Valid Ticket Update");
 			}
-			return updateService.updateTicket(summary, toEmail, priority, description, ticketId);
+			return updateService.updateTicket(summary,receiverName,toEmail, priority, description, ticketId);
 
 		} catch (DAOException | InvalidTicketException e) {
 			throw new ServiceException(e.getMessage());

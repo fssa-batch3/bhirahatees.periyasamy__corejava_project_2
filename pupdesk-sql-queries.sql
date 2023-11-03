@@ -12,7 +12,9 @@ CREATE TABLE IF NOT EXISTS users(
 
 
 CREATE TABLE IF NOT EXISTS tickets(
+  raiser_name VARCHAR(35),
   from_email VARCHAR(255),
+  receiver_name VARCHAR(35),
   to_email VARCHAR(255),
   summary VARCHAR(255),
   ticket_id VARCHAR(34) PRIMARY KEY,

@@ -25,6 +25,8 @@ public class TicketDAO {
 		ArrayList<Ticket> tickets = new ArrayList<>();
 		while (resultData.next()) {
 			Ticket ticket = new Ticket();
+			ticket.setRaiserName(resultData.getString("raiser_name"));
+			ticket.setReceiverName(resultData.getString("receiver_name"));
 			ticket.setCreatedTime(resultData.getString("created_at"));
 			ticket.setDescription(resultData.getString("description"));
 			ticket.setFrom(resultData.getString("from_email"));
@@ -47,18 +49,20 @@ public class TicketDAO {
 	 * @throws DAOException If there is an error while accessing the database.
 	 */
 	public boolean createTicket(Ticket ticket) throws DAOException {
-		String insertQuery = "INSERT INTO tickets (from_email , to_email , summary , ticket_id , priority , status,description,created_at) VALUES(?,?,?,?,?,?,?,?)";
+		String insertQuery = "INSERT INTO tickets (from_email,raiser_name, to_email,receiver_name, summary , ticket_id , priority , status,description,created_at) VALUES(?,?,?,?,?,?,?,?,?,?)";
 		try (Connection connection = dbConnection.getConnection();
 				PreparedStatement statement = connection.prepareStatement(insertQuery)) {
 			// Prepare SQL statement
 			statement.setString(1, ticket.getFrom());
-			statement.setString(2, ticket.getTo());
-			statement.setString(3, ticket.getSummary());
-			statement.setString(4, ticket.getTicketId());
-			statement.setString(5, ticket.getPriority());
-			statement.setString(6, ticket.getStatus());
-			statement.setString(7, ticket.getDescription());
-			statement.setString(8, ticket.getCreatedTime());
+			statement.setString(2, ticket.getRaiserName());
+			statement.setString(3, ticket.getTo());
+			statement.setString(4, ticket.getReceiverName());
+			statement.setString(5, ticket.getSummary());
+			statement.setString(6, ticket.getTicketId());
+			statement.setString(7, ticket.getPriority());
+			statement.setString(8, ticket.getStatus());
+			statement.setString(9, ticket.getDescription());
+			statement.setString(10, ticket.getCreatedTime());
 
 			// Execute the query
 			int rows = statement.executeUpdate();
@@ -156,16 +160,17 @@ public class TicketDAO {
 		}
 	}
 
-	public boolean updateTicket(String summary, String toEmail, String priority, String description, String ticketID)
+	public boolean updateTicket(String summary,String receiver_name ,String toEmail, String priority, String description, String ticketID)
 			throws DAOException {
-		String updateQuery = "UPDATE tickets SET summary = ? , description = ?,priority = ? ,to_email = ? WHERE ticket_id = ?";
+		String updateQuery = "UPDATE tickets SET summary = ? , description = ?,priority = ? ,to_email = ?, receiver_name = ? WHERE ticket_id = ?";
 		try (Connection connect = dbConnection.getConnection();
 				PreparedStatement statement = connect.prepareStatement(updateQuery)) {
 			statement.setString(1, summary);
 			statement.setString(2, description);
 			statement.setString(3, priority);
 			statement.setString(4, toEmail);
-			statement.setString(5, ticketID);
+			statement.setString(5,receiver_name );
+			statement.setString(6, ticketID);
 			int row = statement.executeUpdate();
 			return row == 1;
 		} catch (SQLException e) {
